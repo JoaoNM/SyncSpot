@@ -9,10 +9,22 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import UserForm from "./user-form";
+import TeamForm from "./team-form";
+import AssignUserToTeamForm from "./assign-user-to-team-form";
 
 export const DemoDashboard: FC = () => {
   return (
     <>
+      <UserForm />
+      <TeamForm />
+      <AssignUserToTeamForm />
+      <Input />
+      <Button variant="outline" className="mt-5">
+        Save some data
+      </Button>
       <div className="md:hidden">
         <Image
           src="/examples/dashboard-light.png"
@@ -29,7 +41,7 @@ export const DemoDashboard: FC = () => {
           className="hidden dark:block"
         />
       </div>
-      <div className="hidden flex-col md:flex">
+      <div className="hidden flex-col md:flex pt-[50vh]">
         <div className="flex items-end justify-between space-y-2 mb-6">
           <h2 className="text-3xl leading-5 font-bold tracking-tight">
             Dashboard
