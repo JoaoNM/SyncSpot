@@ -100,10 +100,12 @@ const MiddleSection: React.FC<{ time: string; offset: string }> = ({
 				</span>
 				<div>
 					<Badge
-						variant="positive"
+						variant={
+							JSON.stringify(offset).indexOf("-") > -1 ? "negative" : "positive"
+						}
 						className="ml-1.5 text-md !rounded-[8px] !py-0 my-0 !px-1.5"
 					>
-						{offset}
+						{offset}H
 					</Badge>
 				</div>
 			</div>
@@ -111,41 +113,20 @@ const MiddleSection: React.FC<{ time: string; offset: string }> = ({
 	);
 };
 
-const BottomSection: React.FC<{ username: string; onRemove: () => void }> = ({
-	username,
-	onRemove,
-}) => {
+const BottomSection: React.FC<{}> = ({}) => {
 	return (
 		<div className="flex justify-between items-center p-2 bg-white text-white z-10 relative rounded-lg">
-			<button className="p-1 hover:bg-gray-600 rounded" onClick={onRemove}>
-				➖
-			</button>
-			<span>{username}</span>
+			<button className="p-1 hover:bg-gray-600 rounded">➖</button>
+			<span>Joao Matos</span>
 		</div>
 	);
 };
 
 interface TimezoneCardProps {
-	location: string;
-	offset: string;
-	date: string;
-	time: string;
-	username: string;
-	onEdit: () => void;
-	onRemove: () => void;
+	timezone: string;
 }
 
-const TimezoneCard: React.FC<TimezoneCardProps> = ({
-	location,
-	offset,
-	date,
-	time,
-	username,
-	onEdit,
-	onRemove,
-}) => {
-	const timezone = "Singapore";
-
+const TimezoneCard: React.FC<TimezoneCardProps> = ({ timezone }) => {
 	const [currentTime, setCurrentTime] = useState(moment().tz(timezone));
 	const [localTime, setLocalTime] = useState(moment());
 
@@ -162,7 +143,7 @@ const TimezoneCard: React.FC<TimezoneCardProps> = ({
 	const timezoneOffset = (currentTime.utcOffset() - localTime.utcOffset()) / 60; // Difference from local timezone in hours
 
 	return (
-		<div className="bg-[#181818] p-5 rounded-lg shadow-lg sm:max-w-[50vw]">
+		<div className="bg-[#181818] p-5 rounded-lg shadow-lg flex-grow sm:min-w-[30%]">
 			<div className="relative">
 				<TopSection
 					location={timezone}
@@ -175,7 +156,7 @@ const TimezoneCard: React.FC<TimezoneCardProps> = ({
 				/>
 				<TimeRuler />
 				<TimeProgressBar timezone={timezone} />
-				<BottomSection username={username} onRemove={onRemove} />
+				<BottomSection />
 			</div>
 		</div>
 	);
