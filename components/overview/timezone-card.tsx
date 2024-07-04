@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
+import moment from "moment-timezone";
 
 type TimeRulerProps = React.ComponentProps<typeof Slider>;
 
@@ -32,15 +32,17 @@ const TimeRuler: React.FC = () => {
 	);
 };
 
-const TimeProgressBar: React.FC = () => {
+const TimeProgressBar: React.FC<{
+	timezone: string;
+}> = ({ timezone }) => {
 	const [progress, setProgress] = useState(0);
 
 	useEffect(() => {
 		const calculateProgress = () => {
-			const now = new Date();
-			const hours = now.getHours();
-			const minutes = now.getMinutes();
-			const seconds = now.getSeconds();
+			const now = moment().tz(timezone);
+			const hours = now.hours();
+			const minutes = now.minutes();
+			const seconds = now.seconds();
 			const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 			const percentage = (totalSeconds / 86400) * 100;
 			setProgress(percentage);
@@ -50,7 +52,7 @@ const TimeProgressBar: React.FC = () => {
 		const interval = setInterval(calculateProgress, 1000);
 
 		return () => clearInterval(interval);
-	}, []);
+	}, [timezone]);
 
 	return (
 		<div className="top-0 left-0 w-full h-full overflow-hidden absolute">
@@ -70,34 +72,41 @@ const TopSection: React.FC<{
 	date: string;
 }> = ({ location, offset, date }) => {
 	return (
-		<div className="flex justify-between items-center text-white">
+		<div className="flex relative z-10 justify-between items-center text-white">
 			<div>
-				<h1 className="text-base font-semibold">Mersin, Türkiye</h1>
-				<p className="text-xs opacity-50">{`GMT-3 • Tue, Jul 2`}</p>
+				<h1 className="text-base font-semibold">{location}</h1>
+				<p className="text-xs opacity-50">{`GMT${offset} • ${date}`}</p>
 			</div>
-			<div className="flex space-x-2">
-				{/* <button className="p-1 hover:bg-gray-600 rounded">✏️</button>
-				<button className="p-1 hover:bg-gray-600 rounded">❌</button> */}
-			</div>
+			<div className="flex space-x-2"></div>
 		</div>
 	);
 };
 
 const MiddleSection: React.FC<{ time: string; offset: string }> = ({
-	time,
+	timeString,
 	offset,
 }) => {
+	const [time, period] = timeString.split(" ");
+
 	return (
-		<div className=" flex justify-between items-center pt-8 text-white">
-			<div className="flex">
+		<div className="relative z-10 flex justify-between items-center pt-8 text-white">
+			<div className="flex items-center ">
 				<span className="text-2xl font-space-mono">
-					<span>12:04</span>
-					<span className="inline opacity-50 font-space-grotesk"> PM</span>
+					<span>{time}</span>
+					<span className="inline opacity-50 font-space-grotesk">
+						{" "}
+						{period}
+					</span>
 				</span>
-				<Badge>s</Badge>
-				<span className="text-lg">{offset}</span>
+				<div>
+					<Badge
+						variant="positive"
+						className="ml-1.5 text-md !rounded-[8px] !py-0 my-0 !px-1.5"
+					>
+						{offset}
+					</Badge>
+				</div>
 			</div>
-			<div className="text-green-400 text-lg">{offset}</div>
 		</div>
 	);
 };
@@ -135,13 +144,37 @@ const TimezoneCard: React.FC<TimezoneCardProps> = ({
 	onEdit,
 	onRemove,
 }) => {
+	const timezone = "Singapore";
+
+	const [currentTime, setCurrentTime] = useState(moment().tz(timezone));
+	const [localTime, setLocalTime] = useState(moment());
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setCurrentTime(moment().tz(timezone));
+			setLocalTime(moment());
+		}, 1000);
+
+		return () => clearInterval(intervalId);
+	}, [timezone]);
+
+	const gmtOffset = currentTime.format("Z"); // Difference from GMT
+	const timezoneOffset = (currentTime.utcOffset() - localTime.utcOffset()) / 60; // Difference from local timezone in hours
+
 	return (
 		<div className="bg-[#181818] p-5 rounded-lg shadow-lg sm:max-w-[50vw]">
 			<div className="relative">
-				<TopSection location={location} offset={offset} date={date} />
-				<MiddleSection time={time} offset={offset} />
+				<TopSection
+					location={timezone}
+					offset={gmtOffset}
+					date={currentTime.format("ddd, MMM D")}
+				/>
+				<MiddleSection
+					timeString={currentTime.format("hh:mm:ss A")}
+					offset={timezoneOffset > 0 ? `+${timezoneOffset}` : timezoneOffset}
+				/>
 				<TimeRuler />
-				<TimeProgressBar />
+				<TimeProgressBar timezone={timezone} />
 				<BottomSection username={username} onRemove={onRemove} />
 			</div>
 		</div>
