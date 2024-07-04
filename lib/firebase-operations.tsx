@@ -85,8 +85,20 @@ export const useFirebaseOperations = () => {
 		}
 	};
 
+	const fetchTeamData = async (uid: string) => {
+		const dbRef = ref(database);
+		const snapshot = await get(child(dbRef, `teams/${uid}`));
+		if (snapshot.exists()) {
+			return snapshot.val();
+		} else {
+			console.log("No data available");
+			return null;
+		}
+	};
+
 	return {
 		fetchUserData,
+		fetchTeamData,
 		writeUser,
 		createTeam,
 		updateTeam,
