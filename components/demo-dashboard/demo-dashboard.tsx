@@ -9,10 +9,13 @@ import { userAtom } from "@/store/authAtom";
 import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
 import TeamSelector from "@/components/TeamSelector";
+import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 
 export const DemoDashboard: FC = () => {
+	const [selectedTeam] = useAtom(selectedTeamAtom);
 	const { data: user } = useUser();
-	const { fetchUserData, fetchTeamData } = useFirebaseOperations();
+	const { fetchUserData, fetchTeamData, readUserInfoFromTeam } =
+		useFirebaseOperations();
 	const [userData, setUserData] = useAtom(userAtom);
 	const [teams, setTeams] = useAtom(teamsAtom);
 
@@ -53,11 +56,22 @@ export const DemoDashboard: FC = () => {
 		fetchData();
 	}, [user]);
 
+	useEffect(() => {
+		const fetchData = async () => {
+			if (selectedTeam && selectedTeam.teamId) {
+				const data = await readUserInfoFromTeam(selectedTeam);
+				console.log("SELECTED TEAM DATA: ", data);
+			}
+		};
+
+		fetchData();
+	}, [selectedTeam]);
+
 	return (
 		<>
 			<h1>{userData ? `Welcome ${userData.name}` : "Loading"}</h1>
 			<h2>Select Your Team</h2>
-			{JSON.stringify(teams)}
+			{selectedTeam && selectedTeam.name}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
 			<div className="mt-8">
 				<TeamForm />

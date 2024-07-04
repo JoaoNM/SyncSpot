@@ -1,5 +1,7 @@
 import { ref, set, update, push, get, child, remove } from "firebase/database";
 import { useDatabase } from "reactfire";
+import { SelectedTeamType } from "@/store/selectedTeamAtom";
+import { TeamType } from "@/store/teamsAtom";
 
 export const useFirebaseOperations = () => {
 	const database = useDatabase();
@@ -153,6 +155,32 @@ export const useFirebaseOperations = () => {
 		}
 	};
 
+	const readUserInfoFromTeam = async (
+		teamData: TeamType
+	): Promise<SelectedTeamType | null> => {
+		try {
+			console.log("SELECTED hello ", teamData);
+
+			const userPromises = teamData.userIds.map((userId) =>
+				fetchUserData(userId)
+			);
+			const users = await Promise.all(userPromises);
+
+			const filteredUsers = users.filter((user) => user !== null);
+
+			const selectedTeam: SelectedTeamType = {
+				...teamData,
+				users: filteredUsers,
+			};
+
+			console.log("SELECTED FB:", selectedTeam);
+			return selectedTeam;
+		} catch (error) {
+			console.error("Error reading user info from team:", error);
+			return null;
+		}
+	};
+
 	return {
 		fetchUserData,
 		fetchTeamData,
@@ -161,6 +189,7 @@ export const useFirebaseOperations = () => {
 		updateTeam,
 		assignUserToTeamByEmail,
 		readUserTeams,
+		readUserInfoFromTeam,
 		removeUserFromTeam,
 	};
 };
