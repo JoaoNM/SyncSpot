@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 
-interface TeamType {
+export interface TeamType {
 	name: string;
 	description: string;
-	userIds?: [string];
+	userIds?: string[];
 }
 
 export const teamsAtom = atom<[TeamType] | undefined>(undefined);
