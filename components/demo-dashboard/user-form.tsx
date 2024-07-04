@@ -10,7 +10,7 @@ import { useAtom } from "jotai";
 import { toast } from "@/components/ui/use-toast";
 
 const UserForm = () => {
-	const [userData, setUserData] = useAtom(userAtom);
+	const [userData] = useAtom(userAtom);
 	const [username, setUsername] = useState("");
 	const [timezone, setTimezone] = useState("UTC");
 	const [workingHoursStart, setWorkingHoursStart] = useState("08:00");
