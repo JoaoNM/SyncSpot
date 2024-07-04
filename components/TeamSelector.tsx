@@ -22,7 +22,6 @@ const TeamSelector: React.FC<TeamSelectorProps> = () => {
 
 	return (
 		<div className="flex overflow-x-auto whitespace-nowrap p-4 bg-gray-100">
-			<h1>{selectedTeam && selectedTeam.name}</h1>
 			{teams.map((team: TeamType) => (
 				<div
 					key={team.teamId}
