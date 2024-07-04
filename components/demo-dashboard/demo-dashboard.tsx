@@ -10,6 +10,7 @@ import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
 import TeamSelector from "@/components/TeamSelector";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
+import TimezoneCard from "../overview/timezone-card";
 
 export const DemoDashboard: FC = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
@@ -69,6 +70,7 @@ export const DemoDashboard: FC = () => {
 					</p>
 				))}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
+			<TimezoneCard />
 			<div className="mt-8">
 				<TeamForm />
 				<AssignUserToTeamForm />
