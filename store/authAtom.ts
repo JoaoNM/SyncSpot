@@ -1,4 +1,4 @@
-import { atomWithStorage } from "jotai/utils";
+import { atom } from "jotai";
 
 interface UserType {
 	name: string;
@@ -9,7 +9,4 @@ interface UserType {
 	workingHours: { start: string; end: string };
 }
 
-export const userAtom = atomWithStorage<UserType | undefined>(
-	"user",
-	undefined
-);
+export const userAtom = atom<UserType | undefined>("user", undefined);
