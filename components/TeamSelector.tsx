@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import { TeamType, teamsAtom } from "@/store/teamsAtom";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import { useAtom } from "jotai";
+import { useFirebaseOperations } from "@/lib/firebase-operations";
 
-interface TeamSelectorProps {
-	teams: TeamType[];
-	setSelectedTeam: (team: TeamType) => void;
-}
-
-const TeamSelector: React.FC<TeamSelectorProps> = () => {
+const TeamSelector: React.FC = () => {
 	const [selectedTeam, setSelectedTeam] = useAtom(selectedTeamAtom);
 	const [teams] = useAtom(teamsAtom);
-	const [activeTeam, setActiveTeam] = useState<string | null>(null);
+	const { readUserInfoFromTeam } = useFirebaseOperations();
 
 	console.log(selectedTeam);
 
-	const handleTeamClick = (team: TeamType) => {
+	const handleTeamClick = async (team: TeamType) => {
+		if (team && team.teamId) {
+			const data = await readUserInfoFromTeam(team);
+			console.log("SELECTED TEAM DATA: ", data);
+			setSelectedTeam(data);
+		}
 		console.log(team.teamId);
-		setSelectedTeam(team);
 	};
 
 	return (
@@ -35,6 +35,7 @@ const TeamSelector: React.FC<TeamSelectorProps> = () => {
 					{team.name}
 				</div>
 			))}
+			<span className="mt-4">{JSON.stringify(selectedTeam)}</span>
 		</div>
 	);
 };
