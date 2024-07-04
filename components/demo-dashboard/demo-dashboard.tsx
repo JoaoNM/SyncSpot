@@ -1,19 +1,6 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import Image from "next/image";
-import { MainNav } from "@/components/demo-dashboard/main-nav";
-import { RecentSales } from "@/components/demo-dashboard/recent-sales";
-import {
-	Card,
-	CardHeader,
-	CardTitle,
-	CardContent,
-	CardDescription,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import UserForm from "./user-form";
 import TeamForm from "./team-form";
 import AssignUserToTeamForm from "./assign-user-to-team-form";
 import { useUser } from "reactfire";
@@ -44,20 +31,21 @@ export const DemoDashboard: FC = () => {
 					teamIds,
 				});
 				if (teamIds.length > 0) {
+					let newTeamsList = [...(teams || [])];
 					for (let i = 0; i < teamIds.length; i++) {
 						const currentTeamId = teamIds[i];
+						console.log("team current ", currentTeamId);
 						const data = await fetchTeamData(currentTeamId);
 						console.log("teams: ", teams);
 						console.log("data: ", data);
-						setTeams([
-							...(teams || []),
-							{
-								name: data.teamName,
-								description: data.description,
-								userIds: Object.keys(data.user_ids ? data.user_ids : {}),
-							},
-						]);
+						newTeamsList.push({
+							name: data.teamName,
+							teamId: currentTeamId,
+							description: data.description,
+							userIds: Object.keys(data.user_ids ? data.user_ids : {}),
+						});
 					}
+					setTeams(newTeamsList);
 				}
 			}
 		};
@@ -71,10 +59,10 @@ export const DemoDashboard: FC = () => {
 			<h2>Select Your Team</h2>
 			{JSON.stringify(teams)}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
-			Teams: {JSON.stringify(teams)}
-			<UserForm />
-			<TeamForm />
-			<AssignUserToTeamForm />
+			<div className="mt-8">
+				<TeamForm />
+				<AssignUserToTeamForm />
+			</div>
 		</>
 	);
 };
