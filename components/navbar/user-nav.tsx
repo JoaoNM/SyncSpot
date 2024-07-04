@@ -81,7 +81,6 @@ export function UserNav() {
 						<DialogTrigger asChild>
 							<DropdownMenuItem>My Schedule</DropdownMenuItem>
 						</DialogTrigger>
-						<DropdownMenuItem>Settings</DropdownMenuItem>
 						<DropdownMenuItem>New Team</DropdownMenuItem>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
