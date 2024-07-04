@@ -1624,7 +1624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:latest":
+"@types/react@npm:*, @types/react@npm:^18.3.3":
   version: 18.3.3
   resolution: "@types/react@npm:18.3.3"
   dependencies:
@@ -3441,7 +3441,7 @@ __metadata:
     "@radix-ui/react-tabs": "npm:^1.0.4"
     "@radix-ui/react-toast": "npm:^1.1.5"
     "@types/node": "npm:latest"
-    "@types/react": "npm:latest"
+    "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:latest"
     autoprefixer: "npm:latest"
     class-variance-authority: "npm:^0.7.0"
