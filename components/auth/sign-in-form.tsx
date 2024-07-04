@@ -34,7 +34,7 @@ interface SignInFormProps {
 
 export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
 	const auth = useAuth();
-	const { fetchUserData } = useFirebaseOperations;
+	const { fetchUserData } = useFirebaseOperations();
 	const [isResetOpen, setIsResetOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [, setUser] = useAtom(userAtom);
