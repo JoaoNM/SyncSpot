@@ -13,6 +13,7 @@ import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import TimezoneCard from "@/components/overview/timezone-card";
 import UserTimeBar from "@/components/overlap/user-time-bar";
 import { toast } from "@/components/ui/use-toast";
+import { Slider } from "@/components/ui/slider";
 
 export const DemoDashboard: FC = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
@@ -21,6 +22,12 @@ export const DemoDashboard: FC = () => {
 		useFirebaseOperations();
 	const [userData, setUserData] = useAtom(userAtom);
 	const [teams, setTeams] = useAtom(teamsAtom);
+
+	const [sliderValue, setSliderValue] = useState<number[]>(0);
+
+	const handleValueChange = (value: number[]) => {
+		setSliderValue(value);
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -92,13 +99,33 @@ export const DemoDashboard: FC = () => {
 				<TimezoneCard timezone="UTC" />
 				<TimezoneCard timezone="Singapore" /> */}
 			</div>
-			{userData && (
-				<UserTimeBar
-					timezone="Europe/London"
-					workingHours={userData.workingHours}
-					name={userData.name}
-				/>
-			)}
+			<div className="overflow-y-hidden overflow-x-visible py-8">
+				<div className="ml-14 mr-1">
+					<Slider
+						defaultValue={[0]}
+						max={1500}
+						step={1}
+						onValueChange={handleValueChange}
+					/>
+					{sliderValue}
+				</div>
+				{userData && (
+					<>
+						<UserTimeBar
+							currentSliderValue={sliderValue}
+							timezone="Europe/London"
+							workingHours={userData.workingHours}
+							name={userData.name}
+						/>
+						<UserTimeBar
+							currentSliderValue={sliderValue}
+							timezone="Europe/London"
+							workingHours={userData.workingHours}
+							name={userData.name}
+						/>
+					</>
+				)}
+			</div>
 
 			<div className="mt-8">
 				<TeamForm />
