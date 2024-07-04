@@ -137,7 +137,15 @@ export const useFirebaseOperations = () => {
 		const dbRef = ref(database);
 		const snapshot = await get(child(dbRef, `users/${uid}`));
 		if (snapshot.exists()) {
-			return snapshot.val();
+			const userData = snapshot.val();
+			return {
+				name: userData.username,
+				email: userData.email,
+				userId: userData.userId,
+				timezone: userData.timezone,
+				team_ids: userData.team_ids,
+				workingHours: userData.working_hours,
+			};
 		} else {
 			console.log("No data available");
 			return null;
@@ -182,8 +190,8 @@ export const useFirebaseOperations = () => {
 	};
 
 	return {
-		fetchUserData,
 		fetchTeamData,
+		fetchUserData,
 		writeUser,
 		createTeam,
 		updateTeam,
