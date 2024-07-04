@@ -4,40 +4,44 @@ import { useDatabase } from "reactfire";
 export const useFirebaseOperations = () => {
 	const database = useDatabase();
 
-	const createUser = (username: string, email: string, timezone: string) => {
-		const userRef = ref(database, "users");
-		const newUserRef = push(userRef); // Generates a new unique key
-		const userId = newUserRef.key; // Retrieve the generated key
-		return set(newUserRef, {
+	// create or update users with the same method
+	const writeUser = (
+		userId: string,
+		username: string,
+		email: string,
+		timezone: string = "UTC",
+		workingHours: { start: string; end: string } = {
+			start: "08:00",
+			end: "16:00",
+		}
+	) => {
+		const userRef = ref(database, `users/${userId}`);
+		return set(userRef, {
 			userId,
 			username,
 			email,
 			timezone,
+			working_hours: workingHours,
 		});
 	};
 
-	// Create or Update User
-	const writeUserData = (
-		userId: string,
-		username: string,
-		email: string,
-		password: string
-	) => {
-		set(ref(database, "users/" + userId), {
-			username,
-			email,
-			password,
+	const createTeam = (teamName: string, description: string) => {
+		const teamRef = ref(database, "teams");
+		const newTeamRef = push(teamRef);
+		const teamId = newTeamRef.key;
+		return set(newTeamRef, {
+			teamName,
+			description,
 		});
 	};
 
-	// Create or Update Team
-	const writeTeamData = (
+	const updateTeam = (
 		teamId: string,
 		teamName: string,
 		description: string
 	) => {
 		set(ref(database, "teams/" + teamId), {
-			team_name: teamName,
+			teamName,
 			description,
 		});
 	};
@@ -70,10 +74,22 @@ export const useFirebaseOperations = () => {
 		remove(teamRef);
 	};
 
+	const fetchUserData = async (uid: string) => {
+		const dbRef = ref(database);
+		const snapshot = await get(child(dbRef, `users/${uid}`));
+		if (snapshot.exists()) {
+			return snapshot.val();
+		} else {
+			console.log("No data available");
+			return null;
+		}
+	};
+
 	return {
-		createUser,
-		writeUserData,
-		writeTeamData,
+		fetchUserData,
+		writeUser,
+		createTeam,
+		updateTeam,
 		assignUserToTeam,
 		readUserTeams,
 		removeUserFromTeam,

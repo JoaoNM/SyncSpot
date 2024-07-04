@@ -4,36 +4,34 @@ import { useState } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import TimezoneSelect from "./timezone-select";
 
 const UserForm = () => {
-	const [userId, setUserId] = useState("");
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [timezone, setTimezone] = useState("UTC");
+	const [workingHoursStart, setWorkingHoursStart] = useState("08:00");
+	const [workingHoursEnd, setWorkingHoursEnd] = useState("16:00");
 
 	const { createUser } = useFirebaseOperations();
 
 	const handleSubmit = (e: React.FormEvent) => {
-		console.log("submitting");
 		e.preventDefault();
-		createUser(userId, username, email, password);
-		console.log("wrote user data");
-		setUserId("");
+		createUser(username, email, password, timezone, {
+			start: workingHoursStart,
+			end: workingHoursEnd,
+		});
 		setUsername("");
 		setEmail("");
 		setPassword("");
+		setTimezone("UTC");
+		setWorkingHoursStart("08:00");
+		setWorkingHoursEnd("16:00");
 	};
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<div>
-				<label>User ID:</label>
-				<Input
-					type="text"
-					value={userId}
-					onChange={(e) => setUserId(e.target.value)}
-				/>
-			</div>
 			<div>
 				<label>Username:</label>
 				<Input
@@ -51,11 +49,26 @@ const UserForm = () => {
 				/>
 			</div>
 			<div>
-				<label>Password:</label>
-				<Input
-					type="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
+				<label>Timezone:</label>
+				<TimezoneSelect
+					value={timezone}
+					onChange={(e) => setTimezone(e.target.value)}
+				/>
+			</div>
+			<div>
+				<label>Working Hours Start:</label>
+				<input
+					type="time"
+					value={workingHoursStart}
+					onChange={(e) => setWorkingHoursStart(e.target.value)}
+				/>
+			</div>
+			<div>
+				<label>Working Hours End:</label>
+				<input
+					type="time"
+					value={workingHoursEnd}
+					onChange={(e) => setWorkingHoursEnd(e.target.value)}
 				/>
 			</div>
 			<Button type="submit">Submit</Button>

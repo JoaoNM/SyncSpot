@@ -6,49 +6,41 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
 const TeamForm = () => {
-  const [teamId, setTeamId] = useState("");
-  const [teamName, setTeamName] = useState("");
-  const [description, setDescription] = useState("");
+	const [teamId, setTeamId] = useState("");
+	const [teamName, setTeamName] = useState("");
+	const [description, setDescription] = useState("");
 
-  const { writeTeamData } = useFirebaseOperations();
+	const { createTeam } = useFirebaseOperations();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    writeTeamData(teamId, teamName, description);
-    setTeamId("");
-    setTeamName("");
-    setDescription("");
-  };
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		createTeam(teamName, description);
+		setTeamId("");
+		setTeamName("");
+		setDescription("");
+	};
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Team ID:</label>
-        <Input
-          type="text"
-          value={teamId}
-          onChange={(e) => setTeamId(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Team Name:</label>
-        <Input
-          type="text"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Description:</label>
-        <Input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </div>
-      <Button type="submit">Submit</Button>
-    </form>
-  );
+	return (
+		<form onSubmit={handleSubmit}>
+			<div>
+				<label>Team Name:</label>
+				<Input
+					type="text"
+					value={teamName}
+					onChange={(e) => setTeamName(e.target.value)}
+				/>
+			</div>
+			<div>
+				<label>Description:</label>
+				<Input
+					type="text"
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+				/>
+			</div>
+			<Button type="submit">Submit</Button>
+		</form>
+	);
 };
 
 export default TeamForm;
