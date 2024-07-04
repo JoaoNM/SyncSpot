@@ -1,51 +1,59 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import TimezoneSelect from "./timezone-select";
+import { userAtom } from "@/store/authAtom";
+import { useAtom } from "jotai";
+import { toast } from "@/components/ui/use-toast";
 
 const UserForm = () => {
+	const [userData, setUserData] = useAtom(userAtom);
 	const [username, setUsername] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
 	const [timezone, setTimezone] = useState("UTC");
 	const [workingHoursStart, setWorkingHoursStart] = useState("08:00");
 	const [workingHoursEnd, setWorkingHoursEnd] = useState("16:00");
 
-	const { createUser } = useFirebaseOperations();
+	useEffect(() => {
+		if (userData) {
+			setUsername(userData.name);
+			setTimezone(userData.timezone || "UTC");
+			setWorkingHoursStart(userData.working_hours?.start || "08:00");
+			setWorkingHoursEnd(userData.working_hours?.end || "16:00");
+		}
+	}, [userData]);
+
+	const { writeUser } = useFirebaseOperations();
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		createUser(username, email, password, timezone, {
-			start: workingHoursStart,
-			end: workingHoursEnd,
-		});
-		setUsername("");
-		setEmail("");
-		setPassword("");
-		setTimezone("UTC");
-		setWorkingHoursStart("08:00");
-		setWorkingHoursEnd("16:00");
+		if (userData) {
+			writeUser(userData.userId, username, userData.email, timezone, {
+				start: workingHoursStart,
+				end: workingHoursEnd,
+			});
+			toast({
+				title: "Profile Updated!",
+				description: "We've saved your information",
+			});
+		} else {
+			toast({
+				title: "Error",
+				description: "Your user data wasn't found. Weird.",
+			});
+		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} className="flex flex-col gap-3">
 			<div>
-				<label>Username:</label>
 				<Input
+					className="!cursor-default"
 					type="text"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
-				/>
-			</div>
-			<div>
-				<label>Email:</label>
-				<Input
-					type="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
 				/>
 			</div>
 			<div>
@@ -56,7 +64,7 @@ const UserForm = () => {
 				/>
 			</div>
 			<div>
-				<label>Working Hours Start:</label>
+				<label>Working Hours Start: </label>
 				<input
 					type="time"
 					value={workingHoursStart}
@@ -64,7 +72,7 @@ const UserForm = () => {
 				/>
 			</div>
 			<div>
-				<label>Working Hours End:</label>
+				<label>Working Hours End: </label>
 				<input
 					type="time"
 					value={workingHoursEnd}
