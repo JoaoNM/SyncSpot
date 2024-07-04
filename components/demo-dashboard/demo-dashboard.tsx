@@ -10,8 +10,9 @@ import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
 import TeamSelector from "@/components/team-selector";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
-import TimezoneCard from "../overview/timezone-card";
-import UserTimeBar from "../overlap/user-time-bar";
+import TimezoneCard from "@/components/overview/timezone-card";
+import UserTimeBar from "@/components/overlap/user-time-bar";
+import { toast } from "@/components/ui/use-toast";
 
 export const DemoDashboard: FC = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
@@ -27,14 +28,22 @@ export const DemoDashboard: FC = () => {
 				const data = await fetchUserData(user.uid);
 				console.log(data);
 				const teamIds = Object.keys(data.team_ids ? data.team_ids : {});
-				setUserData({
-					name: data.name,
-					email: data.email,
-					userId: user.uid,
-					timezone: user.timezone,
-					workingHours: user.working_hours,
-					teamIds,
-				});
+				if (data) {
+					setUserData({
+						name: data.name,
+						email: data.email,
+						userId: user.uid,
+						timezone: data.timezone,
+						workingHours: data.workingHours,
+						teamIds,
+					});
+				} else {
+					toast({
+						title: "Error",
+						description: "We had an error fetching your data. Sorry.",
+					});
+				}
+				console.log("Set user data here");
 				if (teamIds.length > 0) {
 					let newTeamsList = [...(teams || [])];
 					for (let i = 0; i < teamIds.length; i++) {
@@ -59,7 +68,11 @@ export const DemoDashboard: FC = () => {
 	}, [user]);
 	return (
 		<>
-			<h1>{userData ? `Welcome ${userData.name}` : "Loading"}</h1>
+			<h1>
+				{userData
+					? `Welcome ${userData.name} ${JSON.stringify(userData)}`
+					: "Loading"}
+			</h1>
 			<h2>Select Your Team</h2>
 			{selectedTeam && selectedTeam.name}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
@@ -79,7 +92,13 @@ export const DemoDashboard: FC = () => {
 				<TimezoneCard timezone="UTC" />
 				<TimezoneCard timezone="Singapore" /> */}
 			</div>
-			<UserTimeBar />
+			{userData && (
+				<UserTimeBar
+					timezone="Europe/London"
+					workingHours={userData.workingHours}
+					name={userData.name}
+				/>
+			)}
 
 			<div className="mt-8">
 				<TeamForm />

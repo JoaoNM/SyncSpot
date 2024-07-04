@@ -2,7 +2,11 @@ import React from "react";
 import moment from "moment-timezone";
 import ProfileIcon from "@/components/profile-icon.tsx";
 
-interface UserTimeBarProps {}
+interface UserTimeBarProps {
+	name: string;
+	timezone: string;
+	workingHours: { start: string; end: string };
+}
 
 interface TimeBarProps {
 	startTime: string;
@@ -17,7 +21,6 @@ const TimeBar: React.FC<TimeBarProps> = ({
 	workingHoursStart,
 	workingHoursEnd,
 }) => {
-	const currentTime = moment().tz(timezone);
 	const startMoment = moment.tz(startTime, timezone);
 	const hours = Array.from({ length: 25 }, (_, i) =>
 		startMoment.clone().add(i, "hours")
@@ -25,6 +28,7 @@ const TimeBar: React.FC<TimeBarProps> = ({
 
 	return (
 		<div className="w-full">
+			<CurrentTimeDisplay timezone={timezone} />
 			<div className="flex w-full overflow-hidden rounded-lg bg-white border border-gray-300">
 				{hours.map((hour, index) => {
 					const isWorkingHour =
@@ -68,39 +72,42 @@ const CurrentTimeDisplay: React.FC<{ timezone: string }> = ({ timezone }) => {
 	const currentTime = moment().tz(timezone);
 
 	return (
-		<div className="ml-4">
-			<div className="inline text-lg font-semibold">
-				{currentTime.format("h:mm A")}{" "}
+		<div className="text-sm text-primary">
+			<div className="inline opacity-70">{`GM${currentTime.format("Z")}`}</div>
+			<div className="inline">
+				{" · "}
+				{currentTime.format("h:mm A")}
+				{" · "}
 			</div>
-			<div className="inline text-sm">
-				{`GM${currentTime.format("Z")} · ${currentTime.format("ddd, MMM D")}`}{" "}
-			</div>
-			<div className="inline text-sm">{timezone}</div>
+			<div className="inline">{timezone}</div>
 		</div>
 	);
 };
 
-const UserTimeBar: React.FC<UserTimeBarProps> = ({}) => {
-	const timezone = "Singapore";
+const UserTimeBar: React.FC<UserTimeBarProps> = ({
+	name,
+	timezone,
+	workingHours,
+}) => {
 	const currentTime = moment().tz(timezone);
-	const currentHour = currentTime.hours();
-	const hours = Array.from({ length: 24 }, (_, i) => i);
-	const formattedDate = currentTime.format("MMM D");
+	const convertTimeToNumber = (time: string): number => {
+		const [hours, minutes] = time.split(":").map(Number);
+		return hours + minutes / 60;
+	};
 
 	return (
-		<div className="flex flex-col gap-5 items-start w-full rounded-lg">
-			<CurrentTimeDisplay timezone={timezone} />
-			<div className="flex w-full gap-5">
+		<div className="flex flex-col gap-0 items-start w-full rounded-lg">
+			<div className="flex items-end w-full gap-4">
 				<ProfileIcon
-					name="Joao Nina Matos"
-					workingHours={{ start: "09:00", end: "17:00" }}
-					timezone="Europe/Istanbul"
+					name={name}
+					workingHours={workingHours}
+					timezone={timezone}
 				/>
 				<TimeBar
 					startTime="2024-07-04T06:00:00"
-					timezone="Europe/Istanbul"
-					workingHoursStart={9}
-					workingHoursEnd={18}
+					timezone={timezone}
+					workingHoursStart={convertTimeToNumber(workingHours.start)}
+					workingHoursEnd={convertTimeToNumber(workingHours.end)}
 				/>
 			</div>
 		</div>
