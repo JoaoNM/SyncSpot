@@ -12,7 +12,7 @@ interface UserTimeBarProps {
 interface TimeBarProps {
 	startTime: string;
 	timezone: string;
-	currentSliderValue: number;
+	currentTime: number;
 	workingHoursStart: number;
 	workingHoursEnd: number;
 }
@@ -20,7 +20,7 @@ interface TimeBarProps {
 const TimeBar: React.FC<TimeBarProps> = ({
 	startTime,
 	timezone,
-	currentSliderValue,
+	currentTime,
 	workingHoursStart,
 	workingHoursEnd,
 }) => {
@@ -33,7 +33,7 @@ const TimeBar: React.FC<TimeBarProps> = ({
 		<div className="w-full">
 			<CurrentTimeDisplay
 				startTime={startTime}
-				currentSliderValue={currentSliderValue}
+				currentTime={currentTime}
 				timezone={timezone}
 			/>
 			<div className="flex w-full overflow-hidden rounded-lg bg-white border border-gray-300">
@@ -74,28 +74,22 @@ const TimeBar: React.FC<TimeBarProps> = ({
 };
 
 const CurrentTimeDisplay: React.FC<{
-	currentSliderValue: number;
+	currentTime: number;
 	timezone: string;
 	startTime: string;
-}> = ({ currentSliderValue, timezone, startTime }) => {
-	const currentTime = moment().tz(timezone);
-	// Calculate the total minutes based on the slider value (each unit is 1 minute)
-	const totalMinutes = Math.round(currentSliderValue * (1500 / 1500));
-	// Calculate the time based on the startTime and totalMinutes
-	const time = moment(startTime).tz(timezone).add(totalMinutes, "minutes");
+}> = ({ currentTime, timezone, startTime }) => {
+	// const currentTime = moment().tz(timezone);
+	// // Calculate the total minutes based on the slider value (each unit is 1 minute)
+	// const totalMinutes = Math.round(currentSliderValue * (1500 / 1500));
+	// // Calculate the time based on the startTime and totalMinutes
+	// const time = moment(startTime).tz(timezone).add(totalMinutes, "minutes");
 
 	return (
 		<div className="text-sm text-primary">
 			<div className="inline opacity-70">{`GM${currentTime.format("Z")}`}</div>
 			<div className="inline">
 				{" · "}
-				{moment()
-					.tz(startTime, timezone)
-					.startOf("day")
-					.add(Math.round(currentSliderValue / 15) * 15, "minutes")
-					.format("h:mm A")}
-
-				{time.format("h:mm A")}
+				{currentTime.format("h:mm A")}
 				{" · "}
 			</div>
 			<div className="inline">{timezone}</div>
@@ -109,11 +103,15 @@ const UserTimeBar: React.FC<UserTimeBarProps> = ({
 	workingHours,
 	currentSliderValue,
 }) => {
-	const currentTime = moment().tz(timezone);
+	const startTime = "2024-07-04T06:00:00";
 	const convertTimeToNumber = (time: string): number => {
 		const [hours, minutes] = time.split(":").map(Number);
 		return hours + minutes / 60;
 	};
+
+	// get current slider time (1500 because 25 hours are shown)
+	const totalMinutes = Math.round(currentSliderValue * (1500 / 1500));
+	const time = moment(startTime).tz(timezone).add(totalMinutes, "minutes");
 
 	return (
 		<div className="flex flex-col gap-0 items-start w-full rounded-lg">
@@ -122,10 +120,11 @@ const UserTimeBar: React.FC<UserTimeBarProps> = ({
 					name={name}
 					workingHours={workingHours}
 					timezone={timezone}
+					currentTime={time}
 				/>
 				<TimeBar
-					currentSliderValue={currentSliderValue}
-					startTime="2024-07-04T06:00:00"
+					currentTime={time}
+					startTime={startTime}
 					timezone={timezone}
 					workingHoursStart={convertTimeToNumber(workingHours.start)}
 					workingHoursEnd={convertTimeToNumber(workingHours.end)}

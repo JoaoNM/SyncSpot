@@ -5,12 +5,14 @@ interface ProfileIconProps {
 	name: string;
 	workingHours: { start: string; end: string };
 	timezone: string;
+	currentTime?: string;
 }
 
 const ProfileIcon: React.FC<ProfileIconProps> = ({
 	name,
 	workingHours,
 	timezone,
+	currentTime,
 }) => {
 	const getInitials = (name: string) => {
 		const initials = name
@@ -24,10 +26,12 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({
 		workingHours: { start: string; end: string },
 		timezone: string
 	) => {
-		const now = moment().tz(timezone);
+		const time = currentTime
+			? moment(currentTime).tz(timezone)
+			: moment().tz(timezone);
 		const start = moment.tz(workingHours.start, "HH:mm", timezone);
 		const end = moment.tz(workingHours.end, "HH:mm", timezone);
-		return now.isBetween(start, end);
+		return time.isBetween(start, end);
 	};
 
 	const initials = getInitials(name);
