@@ -22,18 +22,18 @@ const TeamSelector: React.FC = () => {
 	};
 
 	return (
-		<div className="flex overflow-x-auto whitespace-nowrap p-4 bg-gray-100">
+		<div className="flex overflow-x-auto whitespace-nowrap py-4 ">
 			{teams.map((team: TeamType) => (
 				<div
 					key={team.teamId}
-					className={`inline-block mr-4 px-4 py-2 rounded-lg cursor-pointer transition-colors duration-300 ${
+					className={`inline-block mr-4 pr-4 py-2 rounded-lg cursor-pointer transition-colors duration-300 ${
 						selectedTeam && selectedTeam.teamId === team.teamId
-							? "bg-blue-500 text-white"
-							: "bg-gray-200"
+							? "opacity-100 "
+							: "opacity-50"
 					}`}
 					onClick={() => handleTeamClick(team)}
 				>
-					{team.name}
+					<span className="capitalize font-semibold text-lg">{team.name}</span>
 				</div>
 			))}
 		</div>

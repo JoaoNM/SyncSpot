@@ -8,9 +8,10 @@ import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { UserType, userAtom } from "@/store/authAtom";
 import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
-import TeamSelector from "@/components/TeamSelector";
+import TeamSelector from "@/components/team-selector";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import TimezoneCard from "../overview/timezone-card";
+import UserTimeBar from "../overlap/user-time-bar";
 
 export const DemoDashboard: FC = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
@@ -61,16 +62,25 @@ export const DemoDashboard: FC = () => {
 			<h1>{userData ? `Welcome ${userData.name}` : "Loading"}</h1>
 			<h2>Select Your Team</h2>
 			{selectedTeam && selectedTeam.name}
-			{selectedTeam &&
-				selectedTeam.users.map((user: UserType) => (
-					<p>
-						<br />
-						{user.name} – {user.workingHours.start} until{" "}
-						{user.workingHours.end} ({user.timezone})
-					</p>
-				))}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
-			<TimezoneCard />
+			<div className="flex justify-start gap-3 flex-wrap w-full ">
+				{selectedTeam &&
+					selectedTeam.users.map((user: UserType) => (
+						<>
+							<TimezoneCard timezone={user.timezone} />
+
+							{/* <br />
+							{user.name} – {user.workingHours.start} until{" "}
+							{user.workingHours.end} ({user.timezone}) */}
+						</>
+					))}
+				{/* <TimezoneCard timezone="Singapore" />
+				<TimezoneCard timezone="UTC" />
+				<TimezoneCard timezone="UTC" />
+				<TimezoneCard timezone="Singapore" /> */}
+			</div>
+			<UserTimeBar />
+
 			<div className="mt-8">
 				<TeamForm />
 				<AssignUserToTeamForm />
