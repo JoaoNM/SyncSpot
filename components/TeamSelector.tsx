@@ -15,6 +15,7 @@ const TeamSelector: React.FC = () => {
 		if (team && team.teamId) {
 			const data = await readUserInfoFromTeam(team);
 			console.log("SELECTED TEAM DATA: ", data);
+
 			setSelectedTeam(data);
 		}
 		console.log(team.teamId);
@@ -35,7 +36,6 @@ const TeamSelector: React.FC = () => {
 					{team.name}
 				</div>
 			))}
-			<span className="mt-4">{JSON.stringify(selectedTeam)}</span>
 		</div>
 	);
 };

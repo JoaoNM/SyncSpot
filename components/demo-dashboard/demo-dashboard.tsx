@@ -62,7 +62,11 @@ export const DemoDashboard: FC = () => {
 			{selectedTeam && selectedTeam.name}
 			{selectedTeam &&
 				selectedTeam.users.map((user: UserType) => (
-					<p>{JSON.stringify(user)}</p>
+					<p>
+						<br />
+						{user.name} – {user.workingHours.start} until{" "}
+						{user.workingHours.end} ({user.timezone})
+					</p>
 				))}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
 			<div className="mt-8">
