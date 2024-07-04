@@ -31,9 +31,9 @@ const config: FirebaseOptions = {
 const FirebaseProviderSDKs: FC<{ children: ReactNode }> = ({ children }) => {
   const firebase = useFirebaseApp();
   // we have to use getters to pass to providers, children should use hooks
-  const database = useMemo(() => getDatabase(firebase), []);
   const auth = useMemo(() => getAuth(), []);
   const firestore = useMemo(() => getFirestore(firebase), []);
+  const database = useMemo(() => getDatabase(firebase), []);
   const analytics = useMemo(() => isBrowser() && getAnalytics(firebase), []);
 
   return (
@@ -41,12 +41,16 @@ const FirebaseProviderSDKs: FC<{ children: ReactNode }> = ({ children }) => {
       {auth && (
         <AuthProvider sdk={auth}>
           <FirestoreProvider sdk={firestore}>
-            {/* we can only use analytics in the browser */}
-            {analytics ? (
-              <AnalyticsProvider sdk={analytics}>{children}</AnalyticsProvider>
-            ) : (
-              <>{children}</>
-            )}
+            <DatabaseProvider sdk={database}>
+              {/* we can only use analytics in the browser */}
+              {analytics ? (
+                <AnalyticsProvider sdk={analytics}>
+                  {children}
+                </AnalyticsProvider>
+              ) : (
+                <>{children}</>
+              )}
+            </DatabaseProvider>
           </FirestoreProvider>
         </AuthProvider>
       )}
