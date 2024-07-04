@@ -5,7 +5,7 @@ import TeamForm from "./team-form";
 import AssignUserToTeamForm from "./assign-user-to-team-form";
 import { useUser } from "reactfire";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
-import { userAtom } from "@/store/authAtom";
+import { UserType, userAtom } from "@/store/authAtom";
 import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
 import TeamSelector from "@/components/TeamSelector";
@@ -26,7 +26,7 @@ export const DemoDashboard: FC = () => {
 				console.log(data);
 				const teamIds = Object.keys(data.team_ids ? data.team_ids : {});
 				setUserData({
-					name: data.username,
+					name: data.name,
 					email: data.email,
 					userId: user.uid,
 					timezone: user.timezone,
@@ -55,23 +55,15 @@ export const DemoDashboard: FC = () => {
 
 		fetchData();
 	}, [user]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			if (selectedTeam && selectedTeam.teamId) {
-				const data = await readUserInfoFromTeam(selectedTeam);
-				console.log("SELECTED TEAM DATA: ", data);
-			}
-		};
-
-		fetchData();
-	}, [selectedTeam]);
-
 	return (
 		<>
 			<h1>{userData ? `Welcome ${userData.name}` : "Loading"}</h1>
 			<h2>Select Your Team</h2>
 			{selectedTeam && selectedTeam.name}
+			{selectedTeam &&
+				selectedTeam.users.map((user: UserType) => (
+					<p>{JSON.stringify(user)}</p>
+				))}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
 			<div className="mt-8">
 				<TeamForm />
