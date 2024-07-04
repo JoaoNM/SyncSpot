@@ -50,6 +50,7 @@ const RAW_RUNTIME_STATE =
           ["firebase", "npm:10.12.3"],\
           ["jotai", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:2.8.4"],\
           ["lucide-react", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:0.284.0"],\
+          ["moment", "npm:2.30.1"],\
           ["moment-timezone", "npm:0.5.45"],\
           ["next", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:14.2.4"],\
           ["postcss", "npm:8.4.39"],\
@@ -4833,6 +4834,7 @@ const RAW_RUNTIME_STATE =
           ["firebase", "npm:10.12.3"],\
           ["jotai", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:2.8.4"],\
           ["lucide-react", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:0.284.0"],\
+          ["moment", "npm:2.30.1"],\
           ["moment-timezone", "npm:0.5.45"],\
           ["next", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:14.2.4"],\
           ["postcss", "npm:8.4.39"],\
