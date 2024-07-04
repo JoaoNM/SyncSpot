@@ -1,11 +1,11 @@
-import { ref, set, push, get, child, remove } from "firebase/database";
+import { ref, set, update, push, get, child, remove } from "firebase/database";
 import { useDatabase } from "reactfire";
 
 export const useFirebaseOperations = () => {
 	const database = useDatabase();
 
 	// create or update users with the same method
-	const writeUser = (
+	const writeUser = async (
 		userId: string,
 		username: string,
 		email: string,
@@ -16,23 +16,57 @@ export const useFirebaseOperations = () => {
 		}
 	) => {
 		const userRef = ref(database, `users/${userId}`);
-		return set(userRef, {
-			userId,
-			username,
-			email,
-			timezone,
-			working_hours: workingHours,
-		});
+		try {
+			const snapshot = await get(userRef);
+			if (snapshot.exists()) {
+				return update(userRef, {
+					username,
+					email,
+					timezone,
+					working_hours: workingHours,
+				});
+			} else {
+				return set(userRef, {
+					userId,
+					username,
+					email,
+					timezone,
+					working_hours: workingHours,
+					team_ids: {},
+				});
+			}
+		} catch (error) {
+			console.error("Error writing user data:", error);
+		}
 	};
 
-	const createTeam = (teamName: string, description: string) => {
-		const teamRef = ref(database, "teams");
-		const newTeamRef = push(teamRef);
-		const teamId = newTeamRef.key;
-		return set(newTeamRef, {
-			teamName,
-			description,
-		});
+	const createTeam = async (
+		teamName: string,
+		description: string,
+		userId: string
+	) => {
+		console.log("creating team");
+		try {
+			const teamRef = ref(database, "teams");
+			const newTeamRef = push(teamRef);
+			const teamId = newTeamRef.key;
+
+			await set(newTeamRef, {
+				teamName,
+				description,
+				user_ids: { [userId]: true },
+			});
+
+			// Add the team ID to the user's team_ids
+			const userTeamRef = ref(database, `users/${userId}/team_ids/${teamId}`);
+			await set(userTeamRef, true);
+
+			console.log(
+				`Team ${teamName} created with ID ${teamId} and user ${userId} added to the team.`
+			);
+		} catch (error) {
+			console.error("Error creating team:", error);
+		}
 	};
 
 	const updateTeam = (
@@ -46,12 +80,35 @@ export const useFirebaseOperations = () => {
 		});
 	};
 
-	// Assign User to Team
-	const assignUserToTeam = (userId: string, teamId: string) => {
-		const userRef = ref(database, `users/${userId}/team_ids/${teamId}`);
-		const teamRef = ref(database, `teams/${teamId}/user_ids/${userId}`);
-		set(userRef, true);
-		set(teamRef, true);
+	const fetchUserIdByEmail = async (email: string) => {
+		const dbRef = ref(database);
+		const snapshot = await get(child(dbRef, `users`));
+		if (snapshot.exists()) {
+			const users = snapshot.val();
+			for (const userId in users) {
+				if (users[userId].email === email) {
+					return userId;
+				}
+			}
+		}
+		return null;
+	};
+
+	const assignUserToTeamByEmail = async (email: string, teamId: string) => {
+		try {
+			const userId = await fetchUserIdByEmail(email);
+			if (!userId) {
+				throw new Error("User not found");
+			}
+
+			const userRef = ref(database, `users/${userId}/team_ids/${teamId}`);
+			const teamRef = ref(database, `teams/${teamId}/user_ids/${userId}`);
+			await set(userRef, true);
+			await set(teamRef, true);
+			console.log(`User with email ${email} assigned to team ${teamId}`);
+		} catch (error) {
+			console.error("Error assigning user to team:", error);
+		}
 	};
 
 	// Read User's Teams
@@ -102,7 +159,7 @@ export const useFirebaseOperations = () => {
 		writeUser,
 		createTeam,
 		updateTeam,
-		assignUserToTeam,
+		assignUserToTeamByEmail,
 		readUserTeams,
 		removeUserFromTeam,
 	};
