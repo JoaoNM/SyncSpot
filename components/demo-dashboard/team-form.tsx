@@ -4,20 +4,30 @@ import { useState } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { userAtom } from "@/store/authAtom";
+import { useAtom } from "jotai";
+import { toast } from "@/components/ui/use-toast";
 
 const TeamForm = () => {
+	const [user] = useAtom(userAtom);
 	const [teamId, setTeamId] = useState("");
 	const [teamName, setTeamName] = useState("");
 	const [description, setDescription] = useState("");
 
-	const { createTeam } = useFirebaseOperations();
+	const { createTeam, assignUserToTeamByEmail } = useFirebaseOperations();
 
 	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		createTeam(teamName, description);
-		setTeamId("");
-		setTeamName("");
-		setDescription("");
+		if (user) {
+			e.preventDefault();
+			createTeam(teamName, description, user.userId);
+			setTeamId("");
+			setTeamName("");
+			setDescription("");
+			toast({
+				title: "Team Created!",
+				description: "We've created your new team",
+			});
+		}
 	};
 
 	return (
