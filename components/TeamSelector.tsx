@@ -15,7 +15,7 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
 	const [activeTeam, setActiveTeam] = useState<string | null>(null);
 
 	const handleTeamClick = (team: TeamType) => {
-		setActiveTeam(team.name);
+		setActiveTeam(team.teamId);
 		setSelectedTeam(team);
 	};
 
@@ -23,13 +23,15 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({
 		<div className="flex overflow-x-auto whitespace-nowrap p-4 bg-gray-100">
 			{teams.map((team) => (
 				<div
-					key={team.name}
+					key={team.teamId}
 					className={`inline-block mr-4 px-4 py-2 rounded-lg cursor-pointer transition-colors duration-300 ${
-						activeTeam === team.name ? "bg-blue-500 text-white" : "bg-gray-200"
+						activeTeam === team.teamId
+							? "bg-blue-500 text-white"
+							: "bg-gray-200"
 					}`}
 					onClick={() => handleTeamClick(team)}
 				>
-					{JSON.stringify(team)}
+					{team.name}
 				</div>
 			))}
 		</div>
