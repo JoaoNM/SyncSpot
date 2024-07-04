@@ -4,7 +4,7 @@ export interface UserType {
 	name: string;
 	email: string;
 	userId: string;
-	teamIds: string[];
+	teamIds?: string[];
 	timezone: string;
 	workingHours: { start: string; end: string };
 }
