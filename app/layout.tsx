@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Work_Sans } from "next/font/google";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { MyFirebaseProvider } from "@/components/firebase-providers";
 import { Toaster } from "@/components/ui/toaster";
 import { ReactNode } from "react";
+import { Inter as FontSans } from "next/font/google";
 
-const font = Work_Sans({ subsets: ["latin"] });
+const font = FontSans({
+	subsets: ["latin"],
+	variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
-	title: "SyncSpot | Vercel Next.JS Firebase Shadcn/ui Tailwind Boilerplate",
+	title: "SyncSpot | Timezones for Teams",
 	description:
-		"SyncSpot is a Vercel Next.JS Firebase Shadcn/ui Tailwind Boilerplate project to help you get started with your next project.",
+		"SyncSpot is a tool for distributed teams to sync across timezones",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
