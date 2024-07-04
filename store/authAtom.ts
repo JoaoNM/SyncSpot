@@ -9,4 +9,4 @@ interface UserType {
 	workingHours: { start: string; end: string };
 }
 
-export const userAtom = atom<UserType | undefined>("user", undefined);
+export const userAtom = atom<UserType | undefined>(undefined);
