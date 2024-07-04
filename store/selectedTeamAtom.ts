@@ -1,9 +1,8 @@
 import { atom } from "jotai";
 import { UserType } from "./authAtom";
+import { TeamType } from "./teamsAtom";
 
-interface SelectedTeamType {
-	name: string;
-	description: string;
+interface SelectedTeamType extends TeamType {
 	users: UserType[];
 }
 
