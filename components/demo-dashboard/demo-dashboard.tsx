@@ -19,18 +19,45 @@ import AssignUserToTeamForm from "./assign-user-to-team-form";
 import { useUser } from "reactfire";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { userAtom } from "@/store/authAtom";
+import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
 
 export const DemoDashboard: FC = () => {
 	const { data: user } = useUser();
-	const { fetchUserData } = useFirebaseOperations();
+	const { fetchUserData, fetchTeamData } = useFirebaseOperations();
 	const [userData, setUserData] = useAtom(userAtom);
+	const [teams, setTeams] = useAtom(teamsAtom);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			if (user) {
 				const data = await fetchUserData(user.uid);
-				setUserData(data);
+				console.log(data);
+				const teamIds = Object.keys(data.team_ids ? data.team_ids : {});
+				setUserData({
+					name: data.username,
+					email: data.email,
+					userId: user.uid,
+					timezone: user.timezone,
+					workingHours: user.working_hours,
+					teamIds,
+				});
+				if (teamIds.length > 0) {
+					for (let i = 0; i < teamIds.length; i++) {
+						const currentTeamId = teamIds[i];
+						const data = await fetchTeamData(currentTeamId);
+						console.log("teams: ", teams);
+						console.log("data: ", data);
+						setTeams([
+							...(teams || []),
+							{
+								name: data.name,
+								description: data.description,
+								userIds: Object.keys(data.user_ids ? data.user_ids : {}),
+							},
+						]);
+					}
+				}
 			}
 		};
 
@@ -44,7 +71,7 @@ export const DemoDashboard: FC = () => {
 			<br />
 			{user && user.uid}
 			<br />
-
+			Teams: {JSON.stringify(teams)}
 			<UserForm />
 			<TeamForm />
 			<AssignUserToTeamForm />
