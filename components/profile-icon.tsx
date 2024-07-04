@@ -34,10 +34,10 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({
 	const available = isWithinWorkingHours(workingHours, timezone);
 
 	return (
-		<div className="relative flex items-center justify-center w-10 h-10 bg-blue-200 rounded-full">
-			<span className="text-blue-600 text-sm font-bold">{initials}</span>
+		<div className="relative flex items-center justify-center w-10 h-10 border-[0.4px] border-[#E0E7FF] shadow-sm border-primary rounded-full">
+			<span className="text-primary text-[0.7rem] font-medium">{initials}</span>
 			<div
-				className={`absolute top-0 right-0 w-4 h-4 rounded-full ${
+				className={`absolute top-0.5 right-0 w-2 h-2 rounded-full ${
 					available ? "bg-green-500" : "bg-red-500"
 				}`}
 			></div>
