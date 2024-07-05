@@ -9,10 +9,10 @@ export const TimeRuler: React.FC = () => {
 	const dashes = Array.from({ length: 97 });
 	const labels = ["00", "06", "12", "18", "00"];
 	return (
-		<div className="relative w-full h-8 mb-4 mt-1 text-white">
+		<div className="relative w-full h-8 mb-4 mt-1 ">
 			<div className="absolute top-0 w-full h-full flex justify-between ">
 				{dashes.map((_, index) => (
-					<div key={index} className={`flex flex-col items-center w-[1.03%]`}>
+					<div key={index} className={`flex flex-col  items-center`}>
 						<div
 							className={`${
 								index % 4 === 0 ? "opacity-80" : "opacity-30"
