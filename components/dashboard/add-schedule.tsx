@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -13,9 +14,84 @@ import NewScheduleSlider from "@/components/dashboard/new-schedule-slider";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import { useAtom } from "jotai";
+import { useFirebaseOperations } from "@/lib/firebase-operations";
+import { toast } from "@/components/ui/use-toast";
+import moment from "moment-timezone";
 
 export const AddSchedule = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
+	const [scheduleName, setScheduleName] = useState<string>("");
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [invertStartEndHours, setInvertStartEndHours] =
+		useState<boolean>(false);
+	const [sliderValues, setSliderValues] = useState<number[]>([16, 36]);
+	const [baseTimezone, setBaseTimezone] = useState<string>("GMT");
+
+	const { addCustomSchedule } = useFirebaseOperations();
+
+	const formatWorkingHours = (
+		sliderValues: number[],
+		invertWorkingHours: boolean
+	) => {
+		const nearestHalfHourStart = Math.round(sliderValues[0] * 30);
+		const nearestHalfHourEnd = Math.round(sliderValues[1] * 30);
+		const timeStringStart = moment()
+			.startOf("day")
+			.minutes(nearestHalfHourStart)
+			.format("HH:mm");
+		const timeStringEnd = moment()
+			.startOf("day")
+			.minutes(nearestHalfHourEnd)
+			.format("HH:mm");
+		return {
+			start: invertWorkingHours ? timeStringEnd : timeStringStart,
+			end: invertWorkingHours ? timeStringStart : timeStringEnd,
+		};
+	};
+
+	const handleSubmit = async () => {
+		if (
+			selectedTeam &&
+			selectedTeam.teamId &&
+			sliderValues.length === 2 &&
+			scheduleName.length > 0
+		) {
+			setIsLoading(true);
+			try {
+				const workingHours = formatWorkingHours(
+					sliderValues,
+					invertStartEndHours
+				);
+				await addCustomSchedule(
+					selectedTeam.teamId,
+					scheduleName,
+					baseTimezone,
+					workingHours
+				);
+				toast({
+					title: "Team Updated!",
+					description: "We've updated your team",
+				});
+				setIsDialogOpen(false);
+			} catch {
+				toast({
+					title: "Error",
+					description: "There was an issue creating the team.",
+					variant: "destructive",
+				});
+			} finally {
+				setIsLoading(false);
+			}
+		} else {
+			setIsLoading(false);
+			toast({
+				title: "Error",
+				description: "You're missing data",
+				variant: "destructive",
+			});
+		}
+	};
 
 	return (
 		<Dialog>
@@ -35,19 +111,28 @@ export const AddSchedule = () => {
 						Let's start setting up your schedule!
 					</DialogDescription>
 				</DialogHeader>
-				<div className="flex flex-col gap-4 py-4">
+				<div className="flex flex-col gap-6 pt-4 pb-1.5">
 					<div className="items-center gap-4">
 						<Input
 							id="name"
-							value=""
+							value={scheduleName}
 							placeholder="Schedule Name"
-							className="col-span-3"
+							onChange={(e) => setScheduleName(e.target.value)}
 						/>
 					</div>
-					<NewScheduleSlider />
+					<NewScheduleSlider
+						invertStartEndHours={invertStartEndHours}
+						setInvertStartEndHours={setInvertStartEndHours}
+						sliderValues={sliderValues}
+						setSliderValues={setSliderValues}
+						baseTimezone={baseTimezone}
+						setBaseTimezone={setBaseTimezone}
+					/>
 				</div>
 				<DialogFooter>
-					<Button type="submit">Save changes</Button>
+					<Button onClick={handleSubmit} disabled={isLoading} type="submit">
+						Add Schedule
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

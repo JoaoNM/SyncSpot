@@ -4,8 +4,7 @@ import { Slider } from "@/components/ui/slider";
 import { TimeRuler } from "@/components/overview/timezone-card";
 import { Toggle } from "@/components/ui/toggle";
 import { SymbolIcon } from "@radix-ui/react-icons";
-
-interface NewScheduleSliderProps {}
+import { TimezoneSelect } from "@/components/timezone-select";
 
 const FormattedTimeFromNumber: React.FC<{ value: number }> = ({ value }) => {
 	const nearestHalfHour = Math.round(value * 30);
@@ -18,18 +17,31 @@ const FormattedTimeFromNumber: React.FC<{ value: number }> = ({ value }) => {
 	);
 };
 
-const NewScheduleSlider: React.FC<NewScheduleSliderProps> = ({}) => {
-	const [invertStartEndHours, setInvertStartEndHours] =
-		useState<boolean>(false);
-	const [sliderValues, setSliderValues] = useState<number[]>([16, 36]);
+interface NewScheduleSliderProps {
+	invertStartEndHours: boolean;
+	setInvertStartEndHours: (value: boolean) => void;
+	sliderValues: number[];
+	setSliderValues: (values: number[]) => void;
+	baseTimezone: string;
+	setBaseTimezone: (value: string) => void;
+}
 
+const NewScheduleSlider: React.FC<NewScheduleSliderProps> = ({
+	invertStartEndHours,
+	setInvertStartEndHours,
+	sliderValues,
+	setSliderValues,
+	baseTimezone,
+	setBaseTimezone,
+}) => {
 	const handleSliderChange = (values: number[]) => {
 		setSliderValues(values);
 	};
 
 	return (
-		<div className="flex flex-col gap-4">
-			<div>
+		<div className="flex flex-col gap-6">
+			<div className="flex justify-between">
+				<TimezoneSelect value={baseTimezone} onChange={setBaseTimezone} />
 				<Toggle
 					variant="outline"
 					size="sm"
