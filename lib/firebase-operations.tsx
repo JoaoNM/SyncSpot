@@ -105,6 +105,18 @@ export const useFirebaseOperations = () => {
 		return remove(scheduleRef);
 	};
 
+	const removeUserFromTeam = async (teamId: string, userId: string) => {
+		try {
+			const userTeamRef = ref(database, `users/${userId}/team_ids/${teamId}`);
+			const teamUserRef = ref(database, `teams/${teamId}/user_ids/${userId}`);
+			await remove(userTeamRef);
+			await remove(teamUserRef);
+			console.log(`User with ID ${userId} removed from team ${teamId}`);
+		} catch (error) {
+			console.error("Error removing user from team:", error);
+		}
+	};
+
 	const fetchUserIdByEmail = async (email: string) => {
 		const dbRef = ref(database);
 		const snapshot = await get(child(dbRef, `users`));
@@ -146,14 +158,6 @@ export const useFirebaseOperations = () => {
 			console.log("No data available");
 			return null;
 		}
-	};
-
-	// Remove User from Team
-	const removeUserFromTeam = (userId: string, teamId: string) => {
-		const userRef = ref(database, `users/${userId}/team_ids/${teamId}`);
-		const teamRef = ref(database, `teams/${teamId}/user_ids/${userId}`);
-		remove(userRef);
-		remove(teamRef);
 	};
 
 	const fetchUserData = async (uid: string) => {
@@ -234,5 +238,6 @@ export const useFirebaseOperations = () => {
 		readUserTeams,
 		readUserInfoFromTeam,
 		removeUserFromTeam,
+		deleteCustomSchedule,
 	};
 };

@@ -16,15 +16,18 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { userAtom } from "@/store/authAtom";
 
 const UpdateTeamForm = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
+	const [currentUser] = useAtom(userAtom);
 	const [teamName, setTeamName] = useState("");
 	const [description, setDescription] = useState("");
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const { updateTeam } = useFirebaseOperations();
+	const { updateTeam, removeUserFromTeam, deleteCustomSchedule } =
+		useFirebaseOperations();
 
 	const handleSubmit = async () => {
 		if (selectedTeam && selectedTeam.teamId) {
@@ -53,6 +56,49 @@ const UpdateTeamForm = () => {
 					description: "You need to add a team name",
 					variant: "destructive",
 				});
+			}
+		}
+	};
+
+	const handleRemoveUser = async (userId: string) => {
+		if (selectedTeam && selectedTeam.teamId) {
+			setIsLoading(true);
+			try {
+				await removeUserFromTeam(selectedTeam.teamId, userId);
+				toast({
+					title: "User Removed!",
+					description: "We've removed the user from your team",
+				});
+				if (userId === currentUser.userId) setIsDialogOpen(false);
+			} catch {
+				toast({
+					title: "Error",
+					description: "There was an issue removing the user.",
+					variant: "destructive",
+				});
+			} finally {
+				setIsLoading(false);
+			}
+		}
+	};
+
+	const handleRemoveSchedule = async (scheduleId: string) => {
+		if (selectedTeam && selectedTeam.teamId) {
+			setIsLoading(true);
+			try {
+				await deleteCustomSchedule(selectedTeam.teamId, scheduleId);
+				toast({
+					title: "Schedule Removed!",
+					description: "We've removed the schedule from your team",
+				});
+			} catch {
+				toast({
+					title: "Error",
+					description: "There was an issue removing the schedule.",
+					variant: "destructive",
+				});
+			} finally {
+				setIsLoading(false);
 			}
 		}
 	};
@@ -106,50 +152,61 @@ const UpdateTeamForm = () => {
 											{user.name}
 										</span>
 									</div>
-									<Button variant="ghost" size="xs">
-										Remove
+									<Button
+										variant="ghost"
+										size="xs"
+										onClick={() => handleRemoveUser(user.userId)}
+									>
+										{user.userId === currentUser.userId
+											? "Leave Team"
+											: "Remove"}
 									</Button>
 								</div>
 							</>
 						))}
 					</div>
-					<div className="flex flex-col gap-2">
-						<span className="text-sm font-semibold">Schedules</span>
-						{selectedTeam.schedules.map((schedule) => (
-							<>
-								<div className="flex justify-between">
-									<div className="flex items-center">
-										<span className="text-muted-foreground text-sm">
-											{schedule.name}
-										</span>
+					{selectedTeam.schedules.length > 0 && (
+						<div className="flex flex-col gap-2">
+							<span className="text-sm font-semibold">Schedules</span>
+							{selectedTeam.schedules.map((schedule) => (
+								<>
+									<div className="flex justify-between">
+										<div className="flex items-center">
+											<span className="text-muted-foreground text-sm">
+												{schedule.name}
+											</span>
+										</div>
+										<Button
+											variant="ghost"
+											size="xs"
+											onClick={() => handleRemoveSchedule(schedule.id)}
+										>
+											Remove
+										</Button>
 									</div>
-									<Button variant="ghost" size="xs">
-										Remove
-									</Button>
-								</div>
-							</>
-						))}
-					</div>
+								</>
+							))}
+						</div>
+					)}
 					<DialogFooter>
-						<div className="flex w-full justify-between">
-							<Button
+						{/* TODO: Add a `deleteTeam` method to firebase-operations, we don't have that yet, and you can leave the team, so it didn't make the cut for high priority */}
+						{/* <Button
 								className="mt-4"
 								variant="destructive"
 								disabled={isLoading}
 								size="sm"
 							>
 								Delete Team
-							</Button>
-							<Button
-								className="mt-4"
-								type="submit"
-								disabled={isLoading}
-								size="sm"
-								onClick={handleSubmit}
-							>
-								Save
-							</Button>
-						</div>
+							</Button> */}
+						<Button
+							className="mt-4"
+							type="submit"
+							disabled={isLoading}
+							size="sm"
+							onClick={handleSubmit}
+						>
+							Save
+						</Button>
 					</DialogFooter>
 				</div>
 			</DialogContent>
