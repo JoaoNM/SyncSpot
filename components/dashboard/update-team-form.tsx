@@ -4,30 +4,57 @@ import { useState, useEffect } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { userAtom } from "@/store/authAtom";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import { useAtom } from "jotai";
 import { toast } from "@/components/ui/use-toast";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 
 const UpdateTeamForm = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
-	const [, setTeamId] = useState("");
 	const [teamName, setTeamName] = useState("");
 	const [description, setDescription] = useState("");
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const { updateTeam } = useFirebaseOperations();
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		if (selectedTeam && selectedTeam.teamId) {
 			e.preventDefault();
-			updateTeam(selectedTeam.teamId, teamName, description);
-			setTeamId("");
-			setTeamName("");
-			setDescription("");
-			toast({
-				title: "Team Updated!",
-				description: "We've updated your team",
-			});
+			setIsLoading(true);
+			if (teamName.length > 0) {
+				try {
+					await updateTeam(selectedTeam.teamId, teamName, description);
+					toast({
+						title: "Team Updated!",
+						description: "We've updated your team",
+					});
+					setIsDialogOpen(false);
+				} catch {
+					toast({
+						title: "Error",
+						description: "There was an issue creating the team.",
+						variant: "destructive",
+					});
+				} finally {
+					setIsLoading(false);
+				}
+			} else {
+				setIsLoading(false);
+				toast({
+					title: "Error",
+					description: "You need to add a team name",
+					variant: "destructive",
+				});
+			}
 		}
 	};
 
@@ -39,25 +66,45 @@ const UpdateTeamForm = () => {
 	}, [selectedTeam]);
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
-				<label>Team Name:</label>
-				<Input
-					type="text"
-					value={teamName}
-					onChange={(e) => setTeamName(e.target.value)}
-				/>
-			</div>
-			<div>
-				<label>Description:</label>
-				<Input
-					type="text"
-					value={description}
-					onChange={(e) => setDescription(e.target.value)}
-				/>
-			</div>
-			<Button type="submit">Submit</Button>
-		</form>
+		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+			<DialogTrigger asChild>
+				<Button variant="secondary" size="xs">
+					<span>Edit Team</span>
+				</Button>
+			</DialogTrigger>
+			<DialogContent className="sm:max-w-[525px]">
+				<DialogHeader>
+					<DialogTitle>Edit Team</DialogTitle>
+					<DialogDescription>
+						Edit your team, update your description & remove users from the
+						team!
+					</DialogDescription>
+				</DialogHeader>
+				<form onSubmit={handleSubmit} className="flex flex-col gap-4 py-4">
+					<div>
+						<Input
+							type="text"
+							value={teamName}
+							placeholder="New Team Name"
+							onChange={(e) => setTeamName(e.target.value)}
+						/>
+					</div>
+					<div>
+						<Input
+							type="text"
+							placeholder="New Team Description"
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+						/>
+					</div>
+					<DialogFooter>
+						<Button className="mt-4" type="submit" disabled={isLoading}>
+							Submit
+						</Button>
+					</DialogFooter>
+				</form>
+			</DialogContent>
+		</Dialog>
 	);
 };
 

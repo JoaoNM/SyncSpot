@@ -154,20 +154,33 @@ export const Dashboard: FC = () => {
 			) : (
 				<h1>Loading!</h1>
 			)}
-			<div className="flex justify-start gap-3 flex-wrap w-full ">
-				{selectedTeam &&
-					selectedTeam.users.map((user: UserType) => (
-						<>
-							<TimezoneCard timezone={user.timezone} />
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone={user.timezone}
-								workingHours={user.workingHours}
-								name={user.name}
-								startTime={generateTimestamp()}
-							/>
-						</>
-					))}
+			<div className="flex flex-col gap-3  w-full">
+				{selectedTeam && (
+					<>
+						<div>
+							<span className="opacity-50 text-sm">
+								{selectedTeam.description}
+							</span>
+							<div className="my-3">
+								<UpdateTeamForm />
+							</div>
+						</div>
+						<div className="flex justify-start gap-3 flex-wrap w-full  ">
+							{selectedTeam.users.map((user: UserType) => (
+								<>
+									<TimezoneCard timezone={user.timezone} />
+									<UserTimeBar
+										currentSliderValue={sliderValue}
+										timezone={user.timezone}
+										workingHours={user.workingHours}
+										name={user.name}
+										startTime={generateTimestamp()}
+									/>
+								</>
+							))}
+						</div>
+					</>
+				)}
 				{/* <TimezoneCard timezone="Singapore" />
 				<TimezoneCard timezone="UTC" />
 				<TimezoneCard timezone="UTC" />
@@ -185,7 +198,7 @@ export const Dashboard: FC = () => {
 				</div>
 			</div>
 
-			<div className="overflow-y-hidden overflow-x-visible py-8 relative">
+			{/* <div className="overflow-y-hidden overflow-x-visible py-8 relative">
 				<div className="ml-14 mr-1">
 					<div
 						className="absolute h-full "
@@ -217,7 +230,8 @@ export const Dashboard: FC = () => {
 						</>
 					)}
 				</div>
-			</div>
+			</div> */}
+
 			{/* <div className="mt-8">
 				<AssignUserToTeamForm />
 				<UpdateTeamForm />
