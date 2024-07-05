@@ -21,6 +21,53 @@ import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { TimezoneSelect } from "@/components/timezone-select";
 import { HourSelect } from "@/components/dashboard/hour-select";
 import moment from "moment-timezone";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+const AddSchedule = () => {
+	return (
+		<Dialog>
+			<DialogTrigger asChild>
+				<Button variant="outline" size="xs">
+					<PlusCircledIcon className="mr-1.5 h-3 w-3 stroke-primary" />
+					<span className="text-primary">Add Schedule</span>
+				</Button>
+			</DialogTrigger>
+			<DialogContent className="sm:max-w-[525px]">
+				<DialogHeader>
+					<DialogTitle>Set up a Schedule</DialogTitle>
+					<DialogDescription>
+						Share your agenda and optimize overlapping hours within your day.
+						Let's start setting up your schedule!
+					</DialogDescription>
+				</DialogHeader>
+				<div className="flex flex-col gap-4 py-4">
+					<div className="items-center gap-4">
+						<Input
+							id="name"
+							value=""
+							placeholder="Schedule Name"
+							className="col-span-3"
+						/>
+					</div>
+					<NewScheduleSlider />
+				</div>
+				<DialogFooter>
+					<Button type="submit">Save changes</Button>
+				</DialogFooter>
+			</DialogContent>
+		</Dialog>
+	);
+};
 
 export const Dashboard: FC = () => {
 	const [startHour, setStartHour] = useState<number>(6);
@@ -101,10 +148,8 @@ export const Dashboard: FC = () => {
 			{teams && teams.length > 0 ? (
 				<div className="flex items-center w-full justify-between">
 					<TeamSelector teams={teams} />
-					<Button variant="outline" size="xs">
-						<PlusCircledIcon className="mr-1.5 h-3 w-3 stroke-primary" />
-						<span className="text-primary">Add Team Schedule</span>
-					</Button>
+
+					<AddSchedule />
 				</div>
 			) : (
 				<h1>Loading!</h1>
@@ -114,20 +159,19 @@ export const Dashboard: FC = () => {
 					selectedTeam.users.map((user: UserType) => (
 						<>
 							<TimezoneCard timezone={user.timezone} />
-
-							{/* <br />
-							{user.name} – {user.workingHours.start} until{" "}
-							{user.workingHours.end} ({user.timezone}) */}
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone={user.timezone}
+								workingHours={user.workingHours}
+								name={user.name}
+								startTime={generateTimestamp()}
+							/>
 						</>
 					))}
 				{/* <TimezoneCard timezone="Singapore" />
 				<TimezoneCard timezone="UTC" />
 				<TimezoneCard timezone="UTC" />
 				<TimezoneCard timezone="Singapore" /> */}
-			</div>
-
-			<div>
-				<NewScheduleSlider />
 			</div>
 
 			<div className="pt-10">

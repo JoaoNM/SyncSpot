@@ -3,9 +3,9 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import moment from "moment-timezone";
 
-type TimeRulerProps = React.ComponentProps<typeof Slider>;
-
-export const TimeRuler: React.FC = () => {
+export const TimeRuler: React.FC<{ primaryColor: boolean }> = ({
+	primaryColor,
+}) => {
 	const dashes = Array.from({ length: 97 });
 	const labels = ["00", "06", "12", "18", "00"];
 	return (
@@ -16,12 +16,16 @@ export const TimeRuler: React.FC = () => {
 						<div
 							className={`${
 								index % 4 === 0 ? "opacity-80" : "opacity-30"
-							} w-[1.5px] h-3 bg-gray-500`}
+							} w-[1.5px] h-3 ${primaryColor ? "bg-primary" : "bg-gray-500"}`}
 						></div>
 					</div>
 				))}
 			</div>
-			<div className="absolute bottom-0 w-full flex justify-between text-gray-400 text-sm">
+			<div
+				className={`absolute bottom-0 w-full flex justify-between text-sm ${
+					primaryColor ? "text-primary opacity-80" : "text-gray-400"
+				}`}
+			>
 				{labels.map((label, index) => (
 					<span key={index} className="">
 						{label}

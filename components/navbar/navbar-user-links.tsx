@@ -8,24 +8,21 @@ import { FC } from "react";
 import { useUser } from "reactfire";
 
 export const NavbarUserLinks: FC = () => {
-  const { data, hasEmitted } = useUser();
+	const { data, hasEmitted } = useUser();
 
-  return (
-    <>
-      {hasEmitted && data ? (
-        <>
-          <Link href="/app" className={buttonVariants()}>
-            Dashboard
-          </Link>
-          <UserNav />
-        </>
-      ) : (
-        <>
-          <Link href="/login" className={buttonVariants()}>
-            Login / Register &rarr;
-          </Link>
-        </>
-      )}
-    </>
-  );
+	return (
+		<>
+			{hasEmitted && data ? (
+				<>
+					<UserNav />
+				</>
+			) : (
+				<>
+					<Link href="/login" className={buttonVariants()}>
+						Login / Register &rarr;
+					</Link>
+				</>
+			)}
+		</>
+	);
 };
