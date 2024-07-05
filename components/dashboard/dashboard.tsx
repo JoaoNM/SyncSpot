@@ -162,9 +162,7 @@ export const Dashboard: FC = () => {
 								{selectedTeam.description}
 							</span>
 							<div className="my-3 flex gap-2">
-								<Button variant="outline" size="xs">
-									<span>Add Teammate</span>
-								</Button>
+								<AssignUserToTeamForm />
 								<UpdateTeamForm />
 							</div>
 						</div>
@@ -233,11 +231,6 @@ export const Dashboard: FC = () => {
 						</>
 					)}
 				</div>
-			</div> */}
-
-			{/* <div className="mt-8">
-				<AssignUserToTeamForm />
-				<UpdateTeamForm />
 			</div> */}
 		</>
 	);
