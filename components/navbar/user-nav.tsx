@@ -29,6 +29,8 @@ import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useUser } from "reactfire";
 import { userAtom } from "@/store/authAtom";
+import { selectedTeamAtom } from "@/store/selectedTeamAtom";
+import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
 import UserForm from "../dashboard/user-form";
 
@@ -36,9 +38,13 @@ export function UserNav() {
 	const { data } = useUser();
 	const router = useRouter();
 	const [, setUserData] = useAtom(userAtom);
+	const [, setTeams] = useAtom(teamsAtom);
+	const [, setSelectedTeam] = useAtom(selectedTeamAtom);
 	const doLogout = async () => {
 		await signOut(getAuth());
 		setUserData(undefined);
+		setTeams(undefined);
+		setSelectedTeam(undefined);
 		toast({
 			title: "Logged out",
 			description: "You have been logged out.",
