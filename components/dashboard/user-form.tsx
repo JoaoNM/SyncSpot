@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import TimezoneSelect from "./timezone-select";
+import { TimezoneSelect } from "@/components/timezone-select";
 import { userAtom } from "@/store/authAtom";
 import { useAtom } from "jotai";
 import { toast } from "@/components/ui/use-toast";
@@ -58,10 +58,7 @@ const UserForm = () => {
 			</div>
 			<div>
 				<label>Timezone:</label>
-				<TimezoneSelect
-					value={timezone}
-					onChange={(e) => setTimezone(e.target.value)}
-				/>
+				<TimezoneSelect value={timezone} onChange={setTimezone} />
 			</div>
 			<div>
 				<label>Working Hours Start: </label>
