@@ -55,6 +55,7 @@ const TeamForm = () => {
 				toast({
 					title: "Error",
 					description: "You need to add a team name",
+					variant: "destructive",
 				});
 			}
 		}
