@@ -96,7 +96,7 @@ const TeamForm = () => {
 					</div>
 					<DialogFooter>
 						<Button className="mt-4" type="submit" disabled={isLoading}>
-							Submit
+							Create Team
 						</Button>
 					</DialogFooter>
 				</form>
