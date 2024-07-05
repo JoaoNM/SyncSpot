@@ -11,7 +11,7 @@ interface WorkingHours {
 	start: string;
 	end: string;
 }
-interface ScheduleType {
+export interface ScheduleType {
 	id: string;
 	name: string;
 	timezone: string;

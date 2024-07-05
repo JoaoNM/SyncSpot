@@ -5,6 +5,7 @@ import AssignUserToTeamForm from "./assign-user-to-team-form";
 import { useUser } from "reactfire";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { UserType, userAtom } from "@/store/authAtom";
+import { ScheduleType } from "@/store/selectedTeamAtom";
 import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
 import TeamSelector from "@/components/team-selector";
@@ -27,8 +28,7 @@ export const Dashboard: FC = () => {
 	const [userData, setUserData] = useAtom(userAtom);
 	const [teams, setTeams] = useAtom(teamsAtom);
 	const { data: user } = useUser();
-	const { fetchUserData, fetchTeamData, readUserInfoFromTeam } =
-		useFirebaseOperations();
+	const { fetchUserData, fetchTeamData } = useFirebaseOperations();
 
 	const handleValueChange = (value: number[]) => {
 		setSliderValue(value);
@@ -122,15 +122,22 @@ export const Dashboard: FC = () => {
 							{selectedTeam.users.map((user: UserType) => (
 								<>
 									<TimezoneCard timezone={user.timezone} />
-									<UserTimeBar
+									{/* <UserTimeBar
 										currentSliderValue={sliderValue}
 										timezone={user.timezone}
 										workingHours={user.workingHours}
 										name={user.name}
 										startTime={generateTimestamp()}
-									/>
+									/> */}
 								</>
 							))}
+							{selectedTeam.schedules.map((schedule: ScheduleType) => {
+								return (
+									<>
+										<TimezoneCard timezone={schedule.timezone} />
+									</>
+								);
+							})}
 						</div>
 					</>
 				)}
