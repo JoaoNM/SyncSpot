@@ -32,6 +32,47 @@ export const Dashboard: FC = () => {
 	const { data: user } = useUser();
 	const { fetchUserData, fetchTeamData } = useFirebaseOperations();
 
+	const [timezoneMap, setTimezoneMap] = useState<
+		Map<string, { users: UserType[]; schedules: ScheduleType[] }>
+	>(new Map());
+
+	useEffect(() => {
+		const newTimezoneMap = new Map<
+			string,
+			{ users: UserType[]; schedules: ScheduleType[] }
+		>();
+
+		if (selectedTeam) {
+			// Group users by timezone
+			selectedTeam.users.forEach((user: UserType) => {
+				if (!newTimezoneMap.has(user.timezone)) {
+					newTimezoneMap.set(user.timezone, { users: [], schedules: [] });
+				}
+				newTimezoneMap.get(user.timezone)!.users.push(user);
+			});
+			// Group schedules by timezone
+			selectedTeam.schedules.forEach((schedule: ScheduleType) => {
+				if (!newTimezoneMap.has(schedule.timezone)) {
+					newTimezoneMap.set(schedule.timezone, { users: [], schedules: [] });
+				}
+				newTimezoneMap.get(schedule.timezone)!.schedules.push(schedule);
+			});
+		}
+
+		setTimezoneMap(newTimezoneMap);
+	}, [selectedTeam]);
+	// Convert map to an array for rendering
+	const timezoneCards = Array.from(timezoneMap.entries()).map(
+		([timezone, data]) => (
+			<TimezoneCard
+				key={timezone}
+				timezone={timezone}
+				users={data.users}
+				schedules={data.schedules}
+			/>
+		)
+	);
+
 	const handleValueChange = (value: number[]) => {
 		setSliderValue(value);
 	};
@@ -116,12 +157,13 @@ export const Dashboard: FC = () => {
 										</div>
 									</div>
 									<div className="flex pt-4 justify-start gap-3 flex-wrap w-full ">
-										{selectedTeam.users.map((user: UserType) => (
+										{/* {selectedTeam.users.map((user: UserType) => (
 											<TimezoneCard timezone={user.timezone} />
 										))}
 										{selectedTeam.schedules.map((schedule: ScheduleType) => (
 											<TimezoneCard timezone={schedule.timezone} />
-										))}
+										))} */}
+										{timezoneCards}
 									</div>
 								</>
 							) : (
