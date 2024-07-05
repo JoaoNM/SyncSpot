@@ -218,9 +218,7 @@ export const Dashboard: FC = () => {
 					)}
 				</div>
 			</div>
-
 			{/* <div className="mt-8">
-				<TeamForm />
 				<AssignUserToTeamForm />
 				<UpdateTeamForm />
 			</div> */}
