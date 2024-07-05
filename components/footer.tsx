@@ -6,11 +6,11 @@ export const Footer = () => {
 					<p className="text-center text-sm leading-loose md:text-left">
 						Made with ❤️ by{" "}
 						<a
-							href="https://www.minthouse.dev/"
+							href="https://twitter.com/joaolucas_nm"
 							target="_blank"
 							className="font-medium underline underline-offset-4"
 						>
-							Minthouse.dev
+							João Nina Matos
 						</a>{" "}
 					</p>
 				</div>
