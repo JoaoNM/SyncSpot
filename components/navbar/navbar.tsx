@@ -1,14 +1,19 @@
+"use client";
+
 import { NavbarMobile } from "@/components/navbar/navbar-mobile";
 import { NavbarUserLinks } from "@/components/navbar/navbar-user-links";
 import { buttonVariants } from "@/components/ui/button";
-import { syncspot } from "@/public/syncspot.svg";
 import Link from "next/link";
 import { FC } from "react";
 import { cn } from "@/lib/utils";
-import { PlusCircledIcon, LayersIcon, ClockIcon } from "@radix-ui/react-icons";
+import { LayersIcon, ClockIcon } from "@radix-ui/react-icons";
 import TeamForm from "@/components/dashboard/team-form";
+import { useAtom } from "jotai";
+import { viewAtom } from "@/store/viewAtom";
 
 export const NavBar: FC = () => {
+	const [view, setView] = useAtom(viewAtom);
+
 	return (
 		<>
 			<div className="animate-in bg-white shadow-sm fade-in w-full">
@@ -32,20 +37,36 @@ export const NavBar: FC = () => {
 									href="#1"
 									className={cn(
 										buttonVariants({ variant: "outline", size: "xs" }),
-										"text-primary"
+										view === "timezones"
+											? "text-white bg-primary border-none hover:bg-primary"
+											: "text-primary"
 									)}
+									onClick={() => setView("timezones")}
 								>
-									<ClockIcon className="h-3 w-3 mr-1.5 stroke-primary" />
+									<ClockIcon
+										className={cn(
+											"h-3 w-3 mr-1.5",
+											view === "timezones" ? "stroke-white" : "stroke-primary"
+										)}
+									/>
 									Timezones
 								</Link>
 								<Link
 									href="#2"
 									className={cn(
 										buttonVariants({ variant: "outline", size: "xs" }),
-										"text-primary"
+										view === "overlap"
+											? "text-white bg-primary border-none hover:bg-primary"
+											: "text-primary"
 									)}
+									onClick={() => setView("overlap")}
 								>
-									<LayersIcon className="h-3 w-3 mr-1.5 stroke-primary" />
+									<LayersIcon
+										className={cn(
+											"h-3 w-3 mr-1.5",
+											view === "overlap" ? "stroke-white" : "stroke-primary"
+										)}
+									/>
 									Overlap
 								</Link>
 								<TeamForm />
