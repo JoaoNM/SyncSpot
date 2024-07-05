@@ -75,13 +75,13 @@ export const DemoDashboard: FC = () => {
 	}, [user]);
 	return (
 		<>
-			<h1>
+			{/* <h1>
 				{userData
 					? `Welcome ${userData.name} ${JSON.stringify(userData)}`
 					: "Loading"}
 			</h1>
 			<h2>Select Your Team</h2>
-			{selectedTeam && selectedTeam.name}
+			{selectedTeam && selectedTeam.name} */}
 			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
 			<div className="flex justify-start gap-3 flex-wrap w-full ">
 				{selectedTeam &&
@@ -99,32 +99,73 @@ export const DemoDashboard: FC = () => {
 				<TimezoneCard timezone="UTC" />
 				<TimezoneCard timezone="Singapore" /> */}
 			</div>
-			<div className="overflow-y-hidden overflow-x-visible py-8">
+			<div className="overflow-y-hidden overflow-x-visible py-8 relative">
 				<div className="ml-14 mr-1">
+					<div
+						className="absolute h-full "
+						style={{ width: "calc(100% - 3.5rem)" }}
+					>
+						<div
+							className={`absolute h-full top-[-50px] w-[2px] bg-gradient-to-t opacity-40 from-[#5248e8] to-[#e1e0f5]`}
+							style={{ left: `${(sliderValue / 1505) * 100}%` }}
+						></div>
+					</div>
 					<Slider
+						className="pb-7"
 						defaultValue={[0]}
 						max={1500}
 						step={1}
 						onValueChange={handleValueChange}
 					/>
-					{sliderValue}
 				</div>
-				{userData && (
-					<>
-						<UserTimeBar
-							currentSliderValue={sliderValue}
-							timezone="Europe/London"
-							workingHours={userData.workingHours}
-							name={userData.name}
-						/>
-						<UserTimeBar
-							currentSliderValue={sliderValue}
-							timezone="Europe/London"
-							workingHours={userData.workingHours}
-							name={userData.name}
-						/>
-					</>
-				)}
+				<div className="flex flex-col gap-7">
+					{userData && (
+						<>
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone="Europe/London"
+								workingHours={userData.workingHours}
+								name={userData.name}
+							/>
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone="Europe/London"
+								workingHours={userData.workingHours}
+								name={userData.name}
+							/>
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone="Europe/London"
+								workingHours={userData.workingHours}
+								name={userData.name}
+							/>
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone="Europe/London"
+								workingHours={userData.workingHours}
+								name={userData.name}
+							/>
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone="Europe/London"
+								workingHours={userData.workingHours}
+								name={userData.name}
+							/>
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone="Europe/London"
+								workingHours={userData.workingHours}
+								name={userData.name}
+							/>
+							<UserTimeBar
+								currentSliderValue={sliderValue}
+								timezone="Europe/London"
+								workingHours={userData.workingHours}
+								name={userData.name}
+							/>
+						</>
+					)}
+				</div>
 			</div>
 
 			<div className="mt-8">
