@@ -5,7 +5,7 @@ import moment from "moment-timezone";
 
 type TimeRulerProps = React.ComponentProps<typeof Slider>;
 
-const TimeRuler: React.FC = () => {
+export const TimeRuler: React.FC = () => {
 	const dashes = Array.from({ length: 97 });
 	const labels = ["00", "06", "12", "18", "00"];
 	return (
