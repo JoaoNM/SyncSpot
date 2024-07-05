@@ -84,13 +84,14 @@ export const useFirebaseOperations = () => {
 
 	const addCustomSchedule = (
 		teamId: string,
+		name: string,
 		timezone: string,
 		workingHours: { start: string; end: string }
 	) => {
 		const newScheduleRef = push(ref(database, `teams/${teamId}/schedules`));
 		const scheduleId = newScheduleRef.key;
-
 		return update(ref(database, `teams/${teamId}/schedules/${scheduleId}`), {
+			name,
 			timezone,
 			workingHours,
 		});
@@ -209,6 +210,7 @@ export const useFirebaseOperations = () => {
 		writeUser,
 		createTeam,
 		updateTeam,
+		addCustomSchedule,
 		assignUserToTeamByEmail,
 		readUserTeams,
 		readUserInfoFromTeam,
