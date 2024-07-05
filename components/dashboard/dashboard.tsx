@@ -16,16 +16,20 @@ import { toast } from "@/components/ui/use-toast";
 import { Slider } from "@/components/ui/slider";
 import UpdateTeamForm from "@/components/dashboard/update-team-form";
 import NewScheduleSlider from "@/components/dashboard/new-schedule-slider";
+import { Button } from "../ui/button";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
+import { TimezoneSelect } from "@/components/timezone-select";
+import { HourSelect } from "@/components/dashboard/hour-select";
 
 export const Dashboard: FC = () => {
+	const [startHour, setStartHour] = useState<number | undefined>(undefined);
+	const [sliderValue, setSliderValue] = useState<number[]>(0);
 	const [selectedTeam] = useAtom(selectedTeamAtom);
+	const [userData, setUserData] = useAtom(userAtom);
+	const [teams, setTeams] = useAtom(teamsAtom);
 	const { data: user } = useUser();
 	const { fetchUserData, fetchTeamData, readUserInfoFromTeam } =
 		useFirebaseOperations();
-	const [userData, setUserData] = useAtom(userAtom);
-	const [teams, setTeams] = useAtom(teamsAtom);
-
-	const [sliderValue, setSliderValue] = useState<number[]>(0);
 
 	const handleValueChange = (value: number[]) => {
 		setSliderValue(value);
@@ -84,7 +88,17 @@ export const Dashboard: FC = () => {
 			</h1>
 			<h2>Select Your Team</h2>
 			{selectedTeam && selectedTeam.name} */}
-			{teams && teams.length > 0 && <TeamSelector teams={teams} />}
+			{teams && teams.length > 0 ? (
+				<div className="flex items-center w-full justify-between">
+					<TeamSelector teams={teams} />
+					<Button variant="outline" size="xs">
+						<PlusCircledIcon className="mr-1.5 h-3 w-3 stroke-primary" />
+						<span className="text-primary">Add Team Schedule</span>
+					</Button>
+				</div>
+			) : (
+				<h1>Loading!</h1>
+			)}
 			<div className="flex justify-start gap-3 flex-wrap w-full ">
 				{selectedTeam &&
 					selectedTeam.users.map((user: UserType) => (
@@ -104,6 +118,15 @@ export const Dashboard: FC = () => {
 
 			<div>
 				<NewScheduleSlider />
+			</div>
+
+			<div className="pt-10">
+				<span className="text-xs">Start time:</span>
+				<br />
+				<div className="flex gap-2">
+					<TimezoneSelect />
+					<HourSelect value={startHour} onChange={setStartHour} />
+				</div>
 			</div>
 
 			<div className="overflow-y-hidden overflow-x-visible py-8 relative">
@@ -130,56 +153,21 @@ export const Dashboard: FC = () => {
 						<>
 							<UserTimeBar
 								currentSliderValue={sliderValue}
-								timezone="Europe/London"
+								timezone={userData.timezone}
 								workingHours={userData.workingHours}
 								name={userData.name}
-							/>
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone="Europe/London"
-								workingHours={userData.workingHours}
-								name={userData.name}
-							/>
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone="Europe/London"
-								workingHours={userData.workingHours}
-								name={userData.name}
-							/>
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone="Europe/London"
-								workingHours={userData.workingHours}
-								name={userData.name}
-							/>
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone="Europe/London"
-								workingHours={userData.workingHours}
-								name={userData.name}
-							/>
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone="Europe/London"
-								workingHours={userData.workingHours}
-								name={userData.name}
-							/>
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone="Europe/London"
-								workingHours={userData.workingHours}
-								name={userData.name}
+								startTime="2024-07-04T06:00:00"
 							/>
 						</>
 					)}
 				</div>
 			</div>
 
-			<div className="mt-8">
+			{/* <div className="mt-8">
 				<TeamForm />
 				<AssignUserToTeamForm />
 				<UpdateTeamForm />
-			</div>
+			</div> */}
 		</>
 	);
 };

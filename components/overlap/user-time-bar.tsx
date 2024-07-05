@@ -7,6 +7,7 @@ interface UserTimeBarProps {
 	timezone: string;
 	currentSliderValue: number;
 	workingHours: { start: string; end: string };
+	startTime: string;
 }
 
 interface TimeBarProps {
@@ -102,14 +103,13 @@ const UserTimeBar: React.FC<UserTimeBarProps> = ({
 	timezone,
 	workingHours,
 	currentSliderValue,
+	startTime,
 }) => {
-	const startTime = "2024-07-04T06:00:00";
 	const convertTimeToNumber = (time: string): number => {
 		const [hours, minutes] = time.split(":").map(Number);
 		return hours + minutes / 60;
 	};
 
-	// get current slider time (1500 because 25 hours are shown)
 	const totalMinutes = Math.round(currentSliderValue * (1500 / 1500));
 	const time = moment(startTime).tz(timezone).add(totalMinutes, "minutes");
 
