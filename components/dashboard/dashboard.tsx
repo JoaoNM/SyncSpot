@@ -161,7 +161,10 @@ export const Dashboard: FC = () => {
 							<span className="opacity-50 text-sm">
 								{selectedTeam.description}
 							</span>
-							<div className="my-3">
+							<div className="my-3 flex gap-2">
+								<Button variant="outline" size="xs">
+									<span>Add Teammate</span>
+								</Button>
 								<UpdateTeamForm />
 							</div>
 						</div>
