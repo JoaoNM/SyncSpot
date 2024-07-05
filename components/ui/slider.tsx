@@ -18,11 +18,10 @@ const Slider = React.forwardRef<
 		)}
 		{...props}
 	>
-		<SliderPrimitive.Track className="relative opacity-70 h-2 w-full grow overflow-hidden rounded-full bg-secondary">
+		<SliderPrimitive.Track className="relative opacity-0 h-1 w-full grow overflow-hidden rounded-full bg-secondary">
 			<SliderPrimitive.Range className="absolute h-full bg-primary" />
 		</SliderPrimitive.Track>
-		<SliderPrimitive.Thumb className="flex h-7 w-[0px] bg-white ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ">
-			<div className="absolute -z-10 left-[49%] w-[2.5px] top-[-50px] h-[100vh] bg-red-600"></div>
+		<SliderPrimitive.Thumb className="flex h-[100vh] w-[0px] bg-white ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ">
 			<div className="absolute flex justify-center items-center h-7 w-7 left-1/2 top-1/2 shadow-lg translate-x-[-50%] translate-y-[-50%] bg-white rounded-lg">
 				<svg
 					width="16"
