@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FC } from "react";
 import { cn } from "@/lib/utils";
 import { PlusCircledIcon, LayersIcon, ClockIcon } from "@radix-ui/react-icons";
+import TeamForm from "@/components/dashboard/team-form";
 
 export const NavBar: FC = () => {
 	return (
@@ -47,16 +48,7 @@ export const NavBar: FC = () => {
 									<LayersIcon className="h-3 w-3 mr-1.5 stroke-primary" />
 									Overlap
 								</Link>
-								<Link
-									href="#3"
-									className={cn(
-										buttonVariants({ variant: "outline", size: "xs" }),
-										"text-primary "
-									)}
-								>
-									<PlusCircledIcon className="h-3 w-3 stroke-1 mr-1.5 stroke-primary" />
-									Create Team
-								</Link>
+								<TeamForm />
 							</div>
 							<div className="flex items-center space-x-4">
 								<NavbarUserLinks />
