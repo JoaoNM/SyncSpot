@@ -97,7 +97,6 @@ export const useFirebaseOperations = () => {
 		});
 	};
 
-	// Method to delete a custom schedule
 	const deleteCustomSchedule = (teamId: string, scheduleId: string) => {
 		const scheduleRef = ref(
 			database,
@@ -192,7 +191,6 @@ export const useFirebaseOperations = () => {
 	): Promise<SelectedTeamType | null> => {
 		try {
 			console.log("SELECTED hello ", teamData);
-
 			const userPromises = teamData.userIds.map((userId) =>
 				fetchUserData(userId)
 			);
@@ -200,9 +198,21 @@ export const useFirebaseOperations = () => {
 
 			const filteredUsers = users.filter((user) => user !== null);
 
+			const schedulesRef = ref(database, `teams/${teamData.teamId}/schedules`);
+			const schedulesSnapshot = await get(schedulesRef);
+			const schedulesData = schedulesSnapshot.val();
+
+			const schedules = schedulesData
+				? Object.entries(schedulesData).map(([id, schedule]) => ({
+						id,
+						...schedule,
+				  }))
+				: [];
+
 			const selectedTeam: SelectedTeamType = {
 				...teamData,
 				users: filteredUsers,
+				schedules,
 			};
 
 			console.log("SELECTED FB:", selectedTeam);

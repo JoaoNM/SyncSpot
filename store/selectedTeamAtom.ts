@@ -4,6 +4,18 @@ import { TeamType } from "./teamsAtom";
 
 export interface SelectedTeamType extends TeamType {
 	users: UserType[];
+	schedules: ScheduleType[];
+}
+
+interface WorkingHours {
+	start: string;
+	end: string;
+}
+interface ScheduleType {
+	id: string;
+	name: string;
+	timezone: string;
+	workingHours: WorkingHours;
 }
 
 export const selectedTeamAtom = atom<[SelectedTeamType] | undefined>(undefined);
