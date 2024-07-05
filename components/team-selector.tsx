@@ -26,7 +26,7 @@ const TeamSelector: React.FC = () => {
 			{teams.map((team: TeamType) => (
 				<div
 					key={team.teamId}
-					className={`inline-block mr-4 pr-4 py-2 rounded-lg cursor-pointer transition-colors duration-300 ${
+					className={`inline-block mr-4 pr-4 py-2 hover:opacity-70 rounded-lg cursor-pointer transition-opacity duration-200 ${
 						selectedTeam && selectedTeam.teamId === team.teamId
 							? "opacity-100 "
 							: "opacity-50"
