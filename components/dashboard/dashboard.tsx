@@ -107,7 +107,7 @@ export const Dashboard: FC = () => {
 							{view === "overview" ? (
 								<>
 									<div>
-										<span className="opacity-50 text-sm">
+										<span className="text-muted-foreground text-sm">
 											{selectedTeam.description}
 										</span>
 										<div className="my-3 flex gap-2">
@@ -127,9 +127,10 @@ export const Dashboard: FC = () => {
 							) : (
 								<>
 									<div>
-										<span className="text-xs">Start time:</span>
-										<br />
-										<div className="flex gap-2">
+										<span className="text-muted-foreground text-sm">
+											Start time:
+										</span>
+										<div className="my-3 flex gap-2">
 											<TimezoneSelect
 												value={baseTimezone}
 												onChange={setBaseTimezone}
