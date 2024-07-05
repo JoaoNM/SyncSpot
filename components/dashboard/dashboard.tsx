@@ -72,12 +72,14 @@ export const Dashboard: FC = () => {
 						const data = await fetchTeamData(currentTeamId);
 						console.log("teams: ", teams);
 						console.log("data: ", data);
-						newTeamsList.push({
-							name: data.teamName,
-							teamId: currentTeamId,
-							description: data.description,
-							userIds: Object.keys(data.user_ids ? data.user_ids : {}),
-						});
+						if (data !== null) {
+							newTeamsList.push({
+								name: data.teamName,
+								teamId: currentTeamId,
+								description: data.description,
+								userIds: Object.keys(data.user_ids ? data.user_ids : {}),
+							});
+						}
 					}
 					setTeams(newTeamsList);
 				}
