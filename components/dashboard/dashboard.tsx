@@ -19,12 +19,14 @@ import { TimezoneSelect } from "@/components/timezone-select";
 import { HourSelect } from "@/components/dashboard/hour-select";
 import moment from "moment-timezone";
 import { AddSchedule } from "@/components/dashboard/add-schedule";
+import { viewAtom } from "@/store/viewAtom";
 
 export const Dashboard: FC = () => {
 	const [startHour, setStartHour] = useState<number>(6);
 	const [baseTimezone, setBaseTimezone] = useState<string>("GMT");
 	const [sliderValue, setSliderValue] = useState<number[]>(0);
 	const [selectedTeam] = useAtom(selectedTeamAtom);
+	const [view] = useAtom(viewAtom);
 	const [userData, setUserData] = useAtom(userAtom);
 	const [teams, setTeams] = useAtom(teamsAtom);
 	const { data: user } = useUser();
@@ -90,17 +92,9 @@ export const Dashboard: FC = () => {
 	}, [user]);
 	return (
 		<>
-			{/* <h1>
-				{userData
-					? `Welcome ${userData.name} ${JSON.stringify(userData)}`
-					: "Loading"}
-			</h1>
-			<h2>Select Your Team</h2>
-			{selectedTeam && selectedTeam.name} */}
 			{teams && teams.length > 0 ? (
 				<div className="flex items-center w-full justify-between">
 					<TeamSelector teams={teams} />
-
 					<AddSchedule />
 				</div>
 			) : (
@@ -110,87 +104,96 @@ export const Dashboard: FC = () => {
 				{selectedTeam && (
 					<>
 						<div>
-							<span className="opacity-50 text-sm">
-								{selectedTeam.description}
-							</span>
-							<div className="my-3 flex gap-2">
-								<AssignUserToTeamForm />
-								<UpdateTeamForm />
-							</div>
-						</div>
-						<div className="flex justify-start gap-3 flex-wrap w-full  ">
-							{selectedTeam.users.map((user: UserType) => (
+							{view === "overview" ? (
 								<>
-									<TimezoneCard timezone={user.timezone} />
-									{/* <UserTimeBar
-										currentSliderValue={sliderValue}
-										timezone={user.timezone}
-										workingHours={user.workingHours}
-										name={user.name}
-										startTime={generateTimestamp()}
-									/> */}
+									<div>
+										<span className="opacity-50 text-sm">
+											{selectedTeam.description}
+										</span>
+										<div className="my-3 flex gap-2">
+											<AssignUserToTeamForm />
+											<UpdateTeamForm />
+										</div>
+									</div>
+									<div className="flex pt-4 justify-start gap-3 flex-wrap w-full ">
+										{selectedTeam.users.map((user: UserType) => (
+											<TimezoneCard timezone={user.timezone} />
+										))}
+										{selectedTeam.schedules.map((schedule: ScheduleType) => (
+											<TimezoneCard timezone={schedule.timezone} />
+										))}
+									</div>
 								</>
-							))}
-							{selectedTeam.schedules.map((schedule: ScheduleType) => {
-								return (
-									<>
-										<TimezoneCard timezone={schedule.timezone} />
-									</>
-								);
-							})}
+							) : (
+								<>
+									<div>
+										<span className="text-xs">Start time:</span>
+										<br />
+										<div className="flex gap-2">
+											<TimezoneSelect
+												value={baseTimezone}
+												onChange={setBaseTimezone}
+											/>
+											<HourSelect value={startHour} onChange={setStartHour} />
+										</div>
+									</div>
+									<div className="overflow-y-hidden overflow-x-visible py-8 relative">
+										<div className="ml-14 mr-1">
+											<div
+												className="absolute h-full "
+												style={{ width: "calc(100% - 3.5rem)" }}
+											>
+												<div
+													className={`absolute h-full top-[-50px] w-[2px] bg-gradient-to-t opacity-40 from-[#5248e8] to-[#ffffff]`}
+													style={{ left: `${(sliderValue / 1505) * 100}%` }}
+												></div>
+											</div>
+											<Slider
+												className="pb-7"
+												defaultValue={[0]}
+												max={1500}
+												step={1}
+												onValueChange={handleValueChange}
+											/>
+										</div>
+										<div className="flex flex-col gap-7">
+											{selectedTeam.users.map((user: UserType) => (
+												<UserTimeBar
+													currentSliderValue={sliderValue}
+													timezone={user.timezone}
+													workingHours={user.workingHours}
+													name={user.name}
+													startTime={generateTimestamp()}
+												/>
+											))}
+											{selectedTeam.schedules.map((schedule: ScheduleType) => (
+												<UserTimeBar
+													currentSliderValue={sliderValue}
+													timezone={schedule.timezone}
+													workingHours={schedule.workingHours}
+													name={schedule.name}
+													startTime={generateTimestamp()}
+												/>
+											))}
+											{/* {userData && (
+												<>
+													<UserTimeBar
+														currentSliderValue={sliderValue}
+														timezone={userData.timezone}
+														workingHours={userData.workingHours}
+														name={userData.name}
+														startTime={generateTimestamp()}
+													/>
+												</>
+											)} */}
+										</div>
+									</div>
+								</>
+							)}
 						</div>
 					</>
 				)}
-				{/* <TimezoneCard timezone="Singapore" />
-				<TimezoneCard timezone="UTC" />
-				<TimezoneCard timezone="UTC" />
-				<TimezoneCard timezone="Singapore" /> */}
 			</div>
-
-			<div className="pt-10">
-				<span className="text-xs">
-					Start time: {baseTimezone} {startHour}{" "}
-				</span>
-				<br />
-				<div className="flex gap-2">
-					<TimezoneSelect value={baseTimezone} onChange={setBaseTimezone} />
-					<HourSelect value={startHour} onChange={setStartHour} />
-				</div>
-			</div>
-
-			{/* <div className="overflow-y-hidden overflow-x-visible py-8 relative">
-				<div className="ml-14 mr-1">
-					<div
-						className="absolute h-full "
-						style={{ width: "calc(100% - 3.5rem)" }}
-					>
-						<div
-							className={`absolute h-full top-[-50px] w-[2px] bg-gradient-to-t opacity-40 from-[#5248e8] to-[#ffffff]`}
-							style={{ left: `${(sliderValue / 1505) * 100}%` }}
-						></div>
-					</div>
-					<Slider
-						className="pb-7"
-						defaultValue={[0]}
-						max={1500}
-						step={1}
-						onValueChange={handleValueChange}
-					/>
-				</div>
-				<div className="flex flex-col gap-7">
-					{userData && (
-						<>
-							<UserTimeBar
-								currentSliderValue={sliderValue}
-								timezone={userData.timezone}
-								workingHours={userData.workingHours}
-								name={userData.name}
-								startTime={generateTimestamp()}
-							/>
-						</>
-					)}
-				</div>
-			</div> */}
 		</>
 	);
 };
