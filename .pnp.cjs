@@ -40,6 +40,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-slot", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@radix-ui/react-tabs", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@radix-ui/react-toast", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.2.1"],\
+          ["@radix-ui/react-toggle", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@types/node", "npm:20.14.9"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
@@ -2395,6 +2396,35 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-use-controllable-state", "virtual:30c40d0aee9a2fe00af32eb2e0c09892dca48fc4e89f6fa5f67c4a130c18d92258aaaf84a845677aea05517be16871bac383785ffc26a2b0d7a06cd953df67b0#npm:1.1.0"],\
           ["@radix-ui/react-use-layout-effect", "virtual:01225488518180a6767051931e4567e7d80a7496bd20cb5766482c93a7a5b167ea755ce1b0779a753e5e691318797de3f99883b74cea898f9c68b29bcfd6c7e4#npm:1.1.0"],\
           ["@radix-ui/react-visually-hidden", "virtual:0c0ff3a8641e775dbac07c50e806eccc413b6c1896f78a21c005e6a970ddb97637169090023db4d300345308ebf552d893a0aa381aa09b3841862c80d12f54da#npm:1.1.0"],\
+          ["@types/react", "npm:18.3.3"],\
+          ["@types/react-dom", "npm:18.3.0"],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@radix-ui/react-toggle", [\
+      ["npm:1.1.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@radix-ui-react-toggle-npm-1.1.0-771796dc34-10c0.zip/node_modules/@radix-ui/react-toggle/",\
+        "packageDependencies": [\
+          ["@radix-ui/react-toggle", "npm:1.1.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0", {\
+        "packageLocation": "./.yarn/__virtual__/@radix-ui-react-toggle-virtual-9e17f722ad/4/.yarn/berry/cache/@radix-ui-react-toggle-npm-1.1.0-771796dc34-10c0.zip/node_modules/@radix-ui/react-toggle/",\
+        "packageDependencies": [\
+          ["@radix-ui/react-toggle", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
+          ["@radix-ui/primitive", "npm:1.1.0"],\
+          ["@radix-ui/react-primitive", "virtual:01225488518180a6767051931e4567e7d80a7496bd20cb5766482c93a7a5b167ea755ce1b0779a753e5e691318797de3f99883b74cea898f9c68b29bcfd6c7e4#npm:2.0.0"],\
+          ["@radix-ui/react-use-controllable-state", "virtual:30c40d0aee9a2fe00af32eb2e0c09892dca48fc4e89f6fa5f67c4a130c18d92258aaaf84a845677aea05517be16871bac383785ffc26a2b0d7a06cd953df67b0#npm:1.1.0"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["react", "npm:18.3.1"],\
@@ -4824,6 +4854,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-slot", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@radix-ui/react-tabs", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@radix-ui/react-toast", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.2.1"],\
+          ["@radix-ui/react-toggle", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@types/node", "npm:20.14.9"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
