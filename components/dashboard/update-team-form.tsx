@@ -26,9 +26,8 @@ const UpdateTeamForm = () => {
 
 	const { updateTeam } = useFirebaseOperations();
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = async () => {
 		if (selectedTeam && selectedTeam.teamId) {
-			e.preventDefault();
 			setIsLoading(true);
 			if (teamName.length > 0) {
 				try {
@@ -80,29 +79,62 @@ const UpdateTeamForm = () => {
 						team!
 					</DialogDescription>
 				</DialogHeader>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4 py-4">
+				<div className="flex flex-col gap-4 pt-3">
 					<div>
 						<Input
 							type="text"
 							value={teamName}
-							placeholder="New Team Name"
+							placeholder="Team Name"
 							onChange={(e) => setTeamName(e.target.value)}
 						/>
 					</div>
 					<div>
 						<Input
 							type="text"
-							placeholder="New Team Description"
+							placeholder="Description"
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 						/>
 					</div>
+					<div className="flex flex-col gap-2">
+						<span className="text-sm">Users</span>
+						{selectedTeam.users.map((user) => (
+							<>
+								<div className="flex justify-between">
+									<div className="flex items-center">
+										<span className="text-muted-foreground text-sm">
+											{user.name}
+										</span>
+									</div>
+									<Button variant="ghost" size="xs">
+										Remove
+									</Button>
+								</div>
+							</>
+						))}
+					</div>
 					<DialogFooter>
-						<Button className="mt-4" type="submit" disabled={isLoading}>
-							Submit
-						</Button>
+						<div className="flex w-full justify-between">
+							<Button
+								className="mt-4"
+								variant="destructive"
+								disabled={isLoading}
+								size="sm"
+							>
+								Delete Team
+							</Button>
+							<Button
+								className="mt-4"
+								type="submit"
+								disabled={isLoading}
+								size="sm"
+								onClick={handleSubmit}
+							>
+								Save
+							</Button>
+						</div>
 					</DialogFooter>
-				</form>
+				</div>
 			</DialogContent>
 		</Dialog>
 	);
