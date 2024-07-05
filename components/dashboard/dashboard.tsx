@@ -176,17 +176,6 @@ export const Dashboard: FC = () => {
 													startTime={generateTimestamp()}
 												/>
 											))}
-											{/* {userData && (
-												<>
-													<UserTimeBar
-														currentSliderValue={sliderValue}
-														timezone={userData.timezone}
-														workingHours={userData.workingHours}
-														name={userData.name}
-														startTime={generateTimestamp()}
-													/>
-												</>
-											)} */}
 										</div>
 									</div>
 								</>

@@ -22,7 +22,7 @@ const TeamSelector: React.FC = () => {
 	};
 
 	return (
-		<div className="flex overflow-x-auto whitespace-nowrap py-4 ">
+		<div className="flex overflow-x-auto mr-6 whitespace-nowrap py-4 ">
 			{teams.map((team: TeamType) => (
 				<div
 					key={team.teamId}
