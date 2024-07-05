@@ -4,6 +4,7 @@ import { NavbarMobile } from "@/components/navbar/navbar-mobile";
 import { NavbarUserLinks } from "@/components/navbar/navbar-user-links";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { FC } from "react";
 import { cn } from "@/lib/utils";
 import { LayersIcon, ClockIcon } from "@radix-ui/react-icons";
@@ -32,33 +33,33 @@ export const NavBar: FC = () => {
 							</div>
 						</Link>
 						<div className="hidden md:flex items-center justify-between grow">
-							<div className="flex gap-2 h-fit ">
-								<Link
-									href="#1"
-									className={cn(
-										buttonVariants({ variant: "outline", size: "xs" }),
-										view === "timezones"
+							<div className="flex gap-2 h-fit items-center">
+								<Button
+									size="xs"
+									variant="outline"
+									className={
+										view === "overview"
 											? "text-white bg-primary border-none hover:bg-primary"
 											: "text-primary"
-									)}
-									onClick={() => setView("timezones")}
+									}
+									onClick={() => setView("overview")}
 								>
 									<ClockIcon
 										className={cn(
 											"h-3 w-3 mr-1.5",
-											view === "timezones" ? "stroke-white" : "stroke-primary"
+											view === "overview" ? "stroke-white" : "stroke-primary"
 										)}
 									/>
-									Timezones
-								</Link>
-								<Link
-									href="#2"
-									className={cn(
-										buttonVariants({ variant: "outline", size: "xs" }),
+									Overview
+								</Button>
+								<Button
+									size="xs"
+									variant="outline"
+									className={
 										view === "overlap"
 											? "text-white bg-primary border-none hover:bg-primary"
 											: "text-primary"
-									)}
+									}
 									onClick={() => setView("overlap")}
 								>
 									<LayersIcon
@@ -68,7 +69,7 @@ export const NavBar: FC = () => {
 										)}
 									/>
 									Overlap
-								</Link>
+								</Button>
 								<TeamForm />
 							</div>
 							<div className="flex items-center space-x-4">
