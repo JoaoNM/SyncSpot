@@ -140,7 +140,7 @@ const TimezoneCard: React.FC<TimezoneCardProps> = ({ timezone }) => {
 	}, [timezone]);
 
 	const gmtOffset = currentTime.format("Z"); // Difference from GMT
-	const timezoneOffset = (currentTime.utcOffset() - localTime.utcOffset()) / 60; // Difference from local timezone in hours
+	const timezoneOffset = (currentTime.utcOffset() - localTime.utcOffset()) / 60;
 
 	return (
 		<div className="bg-[#181818] p-5 rounded-lg shadow-lg flex-grow sm:min-w-[30%]">

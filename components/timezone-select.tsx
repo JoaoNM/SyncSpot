@@ -26,9 +26,13 @@ const timezones = moment.tz.names().map((tz) => ({
 	label: `${tz} (${moment.tz(tz).format("Z")})`,
 }));
 
-export function TimezoneSelect() {
+interface HourSelectProps {
+	value: string | undefined;
+	onChange: (value: number) => void;
+}
+
+export function TimezoneSelect({ value, onChange }: HourSelectProps) {
 	const [open, setOpen] = React.useState(false);
-	const [value, setValue] = React.useState("");
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -57,7 +61,7 @@ export function TimezoneSelect() {
 									key={timezone.value}
 									value={timezone.value}
 									onSelect={(currentValue) => {
-										setValue(currentValue === value ? "" : currentValue);
+										onChange(currentValue === value ? "" : currentValue);
 										setOpen(false);
 									}}
 								>

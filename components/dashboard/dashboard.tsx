@@ -20,9 +20,11 @@ import { Button } from "../ui/button";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { TimezoneSelect } from "@/components/timezone-select";
 import { HourSelect } from "@/components/dashboard/hour-select";
+import moment from "moment-timezone";
 
 export const Dashboard: FC = () => {
-	const [startHour, setStartHour] = useState<number | undefined>(undefined);
+	const [startHour, setStartHour] = useState<number>(6);
+	const [baseTimezone, setBaseTimezone] = useState<string>("GMT");
 	const [sliderValue, setSliderValue] = useState<number[]>(0);
 	const [selectedTeam] = useAtom(selectedTeamAtom);
 	const [userData, setUserData] = useAtom(userAtom);
@@ -33,6 +35,14 @@ export const Dashboard: FC = () => {
 
 	const handleValueChange = (value: number[]) => {
 		setSliderValue(value);
+	};
+
+	const generateTimestamp = (): string => {
+		const date = moment
+			.tz(baseTimezone)
+			.startOf("day")
+			.hour(startHour ? startHour : 6);
+		return date;
 	};
 
 	useEffect(() => {
@@ -121,10 +131,12 @@ export const Dashboard: FC = () => {
 			</div>
 
 			<div className="pt-10">
-				<span className="text-xs">Start time:</span>
+				<span className="text-xs">
+					Start time: {baseTimezone} {startHour}{" "}
+				</span>
 				<br />
 				<div className="flex gap-2">
-					<TimezoneSelect />
+					<TimezoneSelect value={baseTimezone} onChange={setBaseTimezone} />
 					<HourSelect value={startHour} onChange={setStartHour} />
 				</div>
 			</div>
@@ -156,7 +168,7 @@ export const Dashboard: FC = () => {
 								timezone={userData.timezone}
 								workingHours={userData.workingHours}
 								name={userData.name}
-								startTime="2024-07-04T06:00:00"
+								startTime={generateTimestamp()}
 							/>
 						</>
 					)}
