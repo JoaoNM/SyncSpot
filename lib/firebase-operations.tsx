@@ -97,6 +97,15 @@ export const useFirebaseOperations = () => {
 		});
 	};
 
+	// Method to delete a custom schedule
+	const deleteCustomSchedule = (teamId: string, scheduleId: string) => {
+		const scheduleRef = ref(
+			database,
+			`teams/${teamId}/schedules/${scheduleId}`
+		);
+		return remove(scheduleRef);
+	};
+
 	const fetchUserIdByEmail = async (email: string) => {
 		const dbRef = ref(database);
 		const snapshot = await get(child(dbRef, `users`));
