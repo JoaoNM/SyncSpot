@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "reactfire";
 import { userAtom } from "@/store/authAtom";
 import { useAtom } from "jotai";
-import UserForm from "../demo-dashboard/user-form";
+import UserForm from "../dashboard/user-form";
 
 export function UserNav() {
 	const { data } = useUser();

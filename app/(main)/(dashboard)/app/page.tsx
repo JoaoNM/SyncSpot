@@ -1,10 +1,10 @@
-import { DemoDashboard } from "@/components/demo-dashboard/demo-dashboard";
+import { Dashboard } from "@/components/dashboard/dashboard";
 
 const ApplicationPage = () => {
-  return (
-    <>
-      <DemoDashboard />
-    </>
-  );
+	return (
+		<>
+			<Dashboard />
+		</>
+	);
 };
 export default ApplicationPage;

@@ -14,10 +14,10 @@ import TimezoneCard from "@/components/overview/timezone-card";
 import UserTimeBar from "@/components/overlap/user-time-bar";
 import { toast } from "@/components/ui/use-toast";
 import { Slider } from "@/components/ui/slider";
-import UpdateTeamForm from "@/components/demo-dashboard/update-team-form";
-import NewScheduleSlider from "@/components/demo-dashboard/new-schedule-slider";
+import UpdateTeamForm from "@/components/dashboard/update-team-form";
+import NewScheduleSlider from "@/components/dashboard/new-schedule-slider";
 
-export const DemoDashboard: FC = () => {
+export const Dashboard: FC = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
 	const { data: user } = useUser();
 	const { fetchUserData, fetchTeamData, readUserInfoFromTeam } =
