@@ -97,13 +97,30 @@ const UpdateTeamForm = () => {
 						/>
 					</div>
 					<div className="flex flex-col gap-2">
-						<span className="text-sm">Users</span>
+						<span className="text-sm font-semibold">Users</span>
 						{selectedTeam.users.map((user) => (
 							<>
 								<div className="flex justify-between">
 									<div className="flex items-center">
 										<span className="text-muted-foreground text-sm">
 											{user.name}
+										</span>
+									</div>
+									<Button variant="ghost" size="xs">
+										Remove
+									</Button>
+								</div>
+							</>
+						))}
+					</div>
+					<div className="flex flex-col gap-2">
+						<span className="text-sm font-semibold">Schedules</span>
+						{selectedTeam.schedules.map((schedule) => (
+							<>
+								<div className="flex justify-between">
+									<div className="flex items-center">
+										<span className="text-muted-foreground text-sm">
+											{schedule.name}
 										</span>
 									</div>
 									<Button variant="ghost" size="xs">
