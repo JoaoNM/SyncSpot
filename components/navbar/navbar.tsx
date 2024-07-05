@@ -4,6 +4,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { syncspot } from "@/public/syncspot.svg";
 import Link from "next/link";
 import { FC } from "react";
+import { cn } from "@/lib/utils";
+import { PlusCircledIcon, LayersIcon, ClockIcon } from "@radix-ui/react-icons";
 
 export const NavBar: FC = () => {
 	return (
@@ -27,21 +29,33 @@ export const NavBar: FC = () => {
 							<div className="flex gap-2 h-fit ">
 								<Link
 									href="#1"
-									className={buttonVariants({ variant: "outline", size: "xs" })}
+									className={cn(
+										buttonVariants({ variant: "outline", size: "xs" }),
+										"text-primary"
+									)}
 								>
+									<ClockIcon className="h-3 w-3 mr-1.5 stroke-primary" />
 									Timezones
 								</Link>
 								<Link
 									href="#2"
-									className={buttonVariants({ variant: "outline", size: "xs" })}
+									className={cn(
+										buttonVariants({ variant: "outline", size: "xs" }),
+										"text-primary"
+									)}
 								>
-									SyncSpot
+									<LayersIcon className="h-3 w-3 mr-1.5 stroke-primary" />
+									Overlap
 								</Link>
 								<Link
 									href="#3"
-									className={buttonVariants({ variant: "outline", size: "xs" })}
+									className={cn(
+										buttonVariants({ variant: "outline", size: "xs" }),
+										"text-primary "
+									)}
 								>
-									Item 3
+									<PlusCircledIcon className="h-3 w-3 stroke-1 mr-1.5 stroke-primary" />
+									Create Team
 								</Link>
 							</div>
 							<div className="flex items-center space-x-4">
