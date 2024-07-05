@@ -10,11 +10,11 @@ import { toast } from "@/components/ui/use-toast";
 
 const TeamForm = () => {
 	const [user] = useAtom(userAtom);
-	const [teamId, setTeamId] = useState("");
+	const [, setTeamId] = useState("");
 	const [teamName, setTeamName] = useState("");
 	const [description, setDescription] = useState("");
 
-	const { createTeam, assignUserToTeamByEmail } = useFirebaseOperations();
+	const { createTeam } = useFirebaseOperations();
 
 	const handleSubmit = (e: React.FormEvent) => {
 		if (user) {
