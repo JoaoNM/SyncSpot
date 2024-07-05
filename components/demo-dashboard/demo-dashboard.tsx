@@ -14,6 +14,8 @@ import TimezoneCard from "@/components/overview/timezone-card";
 import UserTimeBar from "@/components/overlap/user-time-bar";
 import { toast } from "@/components/ui/use-toast";
 import { Slider } from "@/components/ui/slider";
+import UpdateTeamForm from "@/components/demo-dashboard/update-team-form";
+import NewScheduleSlider from "@/components/demo-dashboard/new-schedule-slider";
 
 export const DemoDashboard: FC = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
@@ -99,6 +101,11 @@ export const DemoDashboard: FC = () => {
 				<TimezoneCard timezone="UTC" />
 				<TimezoneCard timezone="Singapore" /> */}
 			</div>
+
+			<div>
+				<NewScheduleSlider />
+			</div>
+
 			<div className="overflow-y-hidden overflow-x-visible py-8 relative">
 				<div className="ml-14 mr-1">
 					<div
@@ -106,7 +113,7 @@ export const DemoDashboard: FC = () => {
 						style={{ width: "calc(100% - 3.5rem)" }}
 					>
 						<div
-							className={`absolute h-full top-[-50px] w-[2px] bg-gradient-to-t opacity-40 from-[#5248e8] to-[#e1e0f5]`}
+							className={`absolute h-full top-[-50px] w-[2px] bg-gradient-to-t opacity-40 from-[#5248e8] to-[#ffffff]`}
 							style={{ left: `${(sliderValue / 1505) * 100}%` }}
 						></div>
 					</div>
@@ -171,6 +178,7 @@ export const DemoDashboard: FC = () => {
 			<div className="mt-8">
 				<TeamForm />
 				<AssignUserToTeamForm />
+				<UpdateTeamForm />
 			</div>
 		</>
 	);
