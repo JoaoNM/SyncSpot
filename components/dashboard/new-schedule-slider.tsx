@@ -37,7 +37,11 @@ const NewScheduleSlider: React.FC<NewScheduleSliderProps> = ({}) => {
 				onPressedChange={() => setInvertStartEndHours(!invertStartEndHours)}
 				aria-label="Toggle italic"
 			>
-				<SymbolIcon className="mr-1 h-3 w-3" />
+				<SymbolIcon
+					className={`mr-1 h-3 w-3 ${
+						invertStartEndHours && "rotate-180"
+					} transition-all duration-500 ease-in-out`}
+				/>
 				Invert Start/End Hours
 			</Toggle>
 			<div className="max-w-[35vw]">
