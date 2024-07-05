@@ -43,7 +43,10 @@ export default function Home() {
 							<Link href="/login">
 								<Button size="lg">Call to Action!</Button>
 							</Link>
-							<Link target="_blank" href="https://github.com/enesien/syncspot">
+							<Link
+								target="_blank"
+								href="https://github.com/https://github.com/JoaoNM/SyncSpot/syncspot"
+							>
 								<Button size="lg" variant="link">
 									View Project on GitHub &rarr;
 								</Button>
@@ -127,28 +130,7 @@ export default function Home() {
 										needs.
 									</CardDescription>
 								</CardHeader>
-								<CardContent>
-									<Link
-										href="https://enesien.com?utm_source=syncspot"
-										target="_blank"
-										className="underline text-slate-800 font-medium"
-									>
-										Enesien Software
-									</Link>{" "}
-									is a web development company that specializes in building
-									custom web applications. We use modern technologies and
-									frameworks to build scalable and maintainable web
-									applications.
-									<Link
-										className={cn(
-											buttonVariants({ variant: "orange", size: "xl" }),
-											"mt-4 w-full"
-										)}
-										href="https://enesien.com?utm_source=syncspot"
-									>
-										Learn More &rarr;
-									</Link>
-								</CardContent>
+								<CardContent></CardContent>
 							</Card>
 						</div>
 					</div>
