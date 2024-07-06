@@ -57,6 +57,8 @@ const RAW_RUNTIME_STATE =
           ["moment", "npm:2.30.1"],\
           ["moment-timezone", "npm:0.5.45"],\
           ["next", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:14.2.4"],\
+          ["next-transpile-modules", "npm:10.0.1"],\
+          ["path", "npm:0.12.7"],\
           ["postcss", "npm:8.4.39"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:18.3.1"],\
@@ -3655,6 +3657,17 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["enhanced-resolve", [\
+      ["npm:5.17.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/enhanced-resolve-npm-5.17.0-60a1d3bc46-10c0.zip/node_modules/enhanced-resolve/",\
+        "packageDependencies": [\
+          ["enhanced-resolve", "npm:5.17.0"],\
+          ["graceful-fs", "npm:4.2.11"],\
+          ["tapable", "npm:2.2.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["env-paths", [\
       ["npm:2.2.1", {\
         "packageLocation": "../../../.yarn/berry/cache/env-paths-npm-2.2.1-7c7577428c-10c0.zip/node_modules/env-paths/",\
@@ -3971,6 +3984,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/indent-string-npm-4.0.0-7b717435b2-10c0.zip/node_modules/indent-string/",\
         "packageDependencies": [\
           ["indent-string", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["inherits", [\
+      ["npm:2.0.3", {\
+        "packageLocation": "../../../.yarn/berry/cache/inherits-npm-2.0.3-401e64b080-10c0.zip/node_modules/inherits/",\
+        "packageDependencies": [\
+          ["inherits", "npm:2.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4500,6 +4522,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["next-transpile-modules", [\
+      ["npm:10.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/next-transpile-modules-npm-10.0.1-d9b1f9457a-10c0.zip/node_modules/next-transpile-modules/",\
+        "packageDependencies": [\
+          ["next-transpile-modules", "npm:10.0.1"],\
+          ["enhanced-resolve", "npm:5.17.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["node-gyp", [\
       ["npm:10.1.0", {\
         "packageLocation": "./.yarn/unplugged/node-gyp-npm-10.1.0-bdea7d2ece/node_modules/node-gyp/",\
@@ -4589,6 +4621,17 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/package-json-from-dist-npm-1.0.0-961f0fcb3b-10c0.zip/node_modules/package-json-from-dist/",\
         "packageDependencies": [\
           ["package-json-from-dist", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["path", [\
+      ["npm:0.12.7", {\
+        "packageLocation": "../../../.yarn/berry/cache/path-npm-0.12.7-bddabe2e86-10c0.zip/node_modules/path/",\
+        "packageDependencies": [\
+          ["path", "npm:0.12.7"],\
+          ["process", "npm:0.11.10"],\
+          ["util", "npm:0.10.4"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4811,6 +4854,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/proc-log-npm-4.2.0-4d65296a9d-10c0.zip/node_modules/proc-log/",\
         "packageDependencies": [\
           ["proc-log", "npm:4.2.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["process", [\
+      ["npm:0.11.10", {\
+        "packageLocation": "../../../.yarn/berry/cache/process-npm-0.11.10-aeb3b641ae-10c0.zip/node_modules/process/",\
+        "packageDependencies": [\
+          ["process", "npm:0.11.10"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5430,6 +5482,8 @@ const RAW_RUNTIME_STATE =
           ["moment", "npm:2.30.1"],\
           ["moment-timezone", "npm:0.5.45"],\
           ["next", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:14.2.4"],\
+          ["next-transpile-modules", "npm:10.0.1"],\
+          ["path", "npm:0.12.7"],\
           ["postcss", "npm:8.4.39"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:18.3.1"],\
@@ -5503,6 +5557,15 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/tailwindcss",\
           "tailwindcss"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tapable", [\
+      ["npm:2.2.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/tapable-npm-2.2.1-8cf5ff3039-10c0.zip/node_modules/tapable/",\
+        "packageDependencies": [\
+          ["tapable", "npm:2.2.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5697,6 +5760,16 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/react",\
           "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["util", [\
+      ["npm:0.10.4", {\
+        "packageLocation": "../../../.yarn/berry/cache/util-npm-0.10.4-7c577db41a-10c0.zip/node_modules/util/",\
+        "packageDependencies": [\
+          ["util", "npm:0.10.4"],\
+          ["inherits", "npm:2.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
