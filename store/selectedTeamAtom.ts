@@ -18,4 +18,4 @@ export interface ScheduleType {
 	workingHours: WorkingHours;
 }
 
-export const selectedTeamAtom = atom<[SelectedTeamType] | undefined>(undefined);
+export const selectedTeamAtom = atom<SelectedTeamType | undefined>(undefined);
