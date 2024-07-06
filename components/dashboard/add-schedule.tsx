@@ -34,7 +34,7 @@ export const formatWorkingHours = (
 		.format("HH:mm");
 	return {
 		start: invertWorkingHours ? timeStringEnd : timeStringStart,
-		end: invertWorkingHours ? timest : timeStringEnd,
+		end: invertWorkingHours ? timeStringStart : timeStringEnd,
 	};
 };
 
