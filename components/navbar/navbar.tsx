@@ -18,30 +18,31 @@ export const NavBar: FC = () => {
 	return (
 		<>
 			<div className="animate-in bg-white shadow-sm fade-in w-full">
-				<nav className="w-full px-2 md:px-[8rem] py-5">
+				<nav className="w-full px-[10vw] py-5">
 					<div className="flex items-center">
 						<Link
 							href="/"
-							className="hover:opacity-80 transition-opacity absolute left-5"
+							className="hover:opacity-80 transition-opacity md:absolute left-5"
 						>
 							<div className="flex items-center">
 								<img
 									src="/syncspot.svg"
-									className="w-8 h-8 mr-2 inline"
+									className="w-8 h-8 mr-3 inline"
 									alt="SyncSpot"
 								/>
 							</div>
 						</Link>
-						<div className="hidden md:flex items-center justify-between grow">
+						<div className="flex items-center justify-between grow">
 							<div className="flex gap-2 h-fit items-center">
 								<Button
 									size="xs"
 									variant="outline"
-									className={
+									className={cn(
 										view === "overview"
 											? "text-white bg-primary border-none hover:bg-primary"
-											: "text-primary"
-									}
+											: "text-primary",
+										"hidden md:flex"
+									)}
 									onClick={() => setView("overview")}
 								>
 									<ClockIcon
@@ -55,11 +56,12 @@ export const NavBar: FC = () => {
 								<Button
 									size="xs"
 									variant="outline"
-									className={
+									className={cn(
 										view === "overlap"
 											? "text-white bg-primary border-none hover:bg-primary"
-											: "text-primary"
-									}
+											: "text-primary",
+										"hidden md:flex"
+									)}
 									onClick={() => setView("overlap")}
 								>
 									<LayersIcon
@@ -75,9 +77,6 @@ export const NavBar: FC = () => {
 							<div className="flex items-center space-x-4">
 								<NavbarUserLinks />
 							</div>
-						</div>
-						<div className="grow md:hidden flex justify-end">
-							<NavbarMobile />
 						</div>
 					</div>
 				</nav>

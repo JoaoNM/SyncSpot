@@ -147,7 +147,7 @@ export const Dashboard: FC = () => {
 	return (
 		<>
 			{teams && teams.length > 0 ? (
-				<div className="flex items-center w-full justify-between">
+				<div className="flex md:flex-row gap-3 md:gap-6 pb-4 md:pb-1 flex-col items-center w-full justify-between">
 					<TeamSelector teams={teams} />
 					<AddSchedule />
 				</div>

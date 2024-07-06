@@ -40,7 +40,7 @@ const NewScheduleSlider: React.FC<NewScheduleSliderProps> = ({
 
 	return (
 		<div className="flex flex-col gap-6">
-			<div className="flex justify-between">
+			<div className="flex flex-col gap-2 md:flex-row justify-between">
 				<TimezoneSelect value={baseTimezone} onChange={setBaseTimezone} />
 				<Toggle
 					variant="outline"
@@ -57,7 +57,7 @@ const NewScheduleSlider: React.FC<NewScheduleSliderProps> = ({
 					Invert Start/End Hours
 				</Toggle>
 			</div>
-			<div className="max-w-[35vw]">
+			<div className="md:max-w-[35vw]">
 				<div
 					className={`flex justify-between ${
 						invertStartEndHours && "flex-row-reverse"
