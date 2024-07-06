@@ -80,7 +80,7 @@ const NewScheduleSlider: React.FC<NewScheduleSliderProps> = ({
 					</div>
 					<Slider
 						className="pb-7"
-						defaultValue={[16, 36]}
+						defaultValue={sliderValues}
 						minStepsBetweenThumbs={4}
 						max={48}
 						step={1}
