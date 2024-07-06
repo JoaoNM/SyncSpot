@@ -135,7 +135,7 @@ export const Dashboard: FC = () => {
 
 	useEffect(() => {
 		const fetchFirstTeam = async () => {
-			if (user && teams.length > 0) {
+			if (user && teams && teams.length > 0) {
 				const data = await readUserInfoFromTeam(teams[0]);
 				setSelectedTeam(data);
 			}
