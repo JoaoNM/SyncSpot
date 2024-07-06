@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import { useAtom } from "jotai";
 import { toast } from "@/components/ui/use-toast";
