@@ -37,7 +37,7 @@ import UserForm from "../dashboard/user-form";
 export function UserNav() {
 	const { data } = useUser();
 	const router = useRouter();
-	const [, setUserData] = useAtom(userAtom);
+	const [userData, setUserData] = useAtom(userAtom);
 	const [, setTeams] = useAtom(teamsAtom);
 	const [, setSelectedTeam] = useAtom(selectedTeamAtom);
 	const doLogout = async () => {
@@ -73,9 +73,7 @@ export function UserNav() {
 					<DropdownMenuLabel className="font-normal">
 						<div className="flex flex-col space-y-1">
 							<p className="text-sm font-medium leading-none">
-								{data?.displayName ||
-									data?.email?.slice(0, data?.email?.indexOf("@")) ||
-									"Anonymous"}
+								{userData ? userData.name : "Anonymous"}
 							</p>
 							<p className="text-xs leading-none text-muted-foreground">
 								{data?.email || "No email"}
@@ -87,7 +85,6 @@ export function UserNav() {
 						<DialogTrigger asChild>
 							<DropdownMenuItem>My Schedule</DropdownMenuItem>
 						</DialogTrigger>
-						<DropdownMenuItem>New Team</DropdownMenuItem>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem onClick={doLogout}>Log out</DropdownMenuItem>
