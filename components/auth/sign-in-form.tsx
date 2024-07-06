@@ -102,20 +102,20 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
 					/>
 					<Button type="submit" disabled={isLoading}>
 						Submit
-					</button>
+					</Button>
 				</form>
 			</Form>
 			<p className="mt-4 text-sm">
 				Forgot password?{" "}
 				<Button variant="link" onClick={() => setIsResetOpen(true)}>
 					Reset
-				</button>
+				</Button>
 			</p>
 			<p className="text-sm">
 				Not a member?{" "}
 				<Button variant="link" onClick={onShowSignUp}>
 					Sign up instead.
-				</button>
+				</Button>
 			</p>
 			<ModalForgotPassword isOpen={isResetOpen} setIsOpen={setIsResetOpen} />
 		</>

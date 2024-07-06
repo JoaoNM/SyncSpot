@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 import { TimezoneSelect } from "@/components/timezone-select";
 import { userAtom } from "@/store/authAtom";
 import { useAtom } from "jotai";
@@ -78,7 +78,7 @@ const UserForm = () => {
 					setBaseTimezone={setBaseTimezone}
 				/>
 			</div>
-			<Button type="submit">Save</button>
+			<Button type="submit">Save</Button>
 		</form>
 	);
 };

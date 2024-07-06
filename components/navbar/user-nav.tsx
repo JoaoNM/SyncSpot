@@ -67,7 +67,7 @@ export function UserNav() {
 									""}
 							</AvatarFallback>
 						</Avatar>
-					</button>
+					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="w-56" align="end" forceMount>
 					<DropdownMenuLabel className="font-normal">

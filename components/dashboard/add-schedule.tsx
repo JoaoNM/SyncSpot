@@ -99,7 +99,7 @@ export const AddSchedule = () => {
 				<Button variant="outline" size="xs" disabled={!selectedTeam}>
 					<PlusCircledIcon className="mr-1.5 h-3 w-3 stroke-primary" />
 					<span className="text-primary">Add Schedule</span>
-				</button>
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[525px]">
 				<DialogHeader>
@@ -132,7 +132,7 @@ export const AddSchedule = () => {
 				<DialogFooter>
 					<Button onClick={handleSubmit} disabled={isLoading} type="submit">
 						Add Schedule
-					</button>
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

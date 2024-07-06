@@ -48,7 +48,7 @@ export function TimezoneSelect({ value, onChange }: HourSelectProps) {
 						? timezones.find((timezone) => timezone.value === value)?.label
 						: "Select timezone..."}
 					<ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
-				</button>
+				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-[250px] p-0">
 				<Command>
