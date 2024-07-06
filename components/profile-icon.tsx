@@ -35,9 +35,25 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({
 		const time = currentTime
 			? moment(currentTime).tz(timezone)
 			: moment().tz(timezone);
-		const start = moment.tz(workingHours.start, "HH:mm", timezone);
-		const end = moment.tz(workingHours.end, "HH:mm", timezone);
-		return time.isBetween(start, end);
+
+		const timeInMinutes = time.hours() * 60 + time.minutes();
+
+		const [startHour, startMinute] = workingHours.start.split(":").map(Number);
+		const [endHour, endMinute] = workingHours.end.split(":").map(Number);
+
+		const startTimeInMinutes = startHour * 60 + startMinute;
+		const endTimeInMinutes = endHour * 60 + endMinute;
+
+		if (endTimeInMinutes < startTimeInMinutes) {
+			// Wrap around midnight case
+			return (
+				timeInMinutes >= startTimeInMinutes || timeInMinutes <= endTimeInMinutes
+			);
+		}
+
+		return (
+			timeInMinutes >= startTimeInMinutes && timeInMinutes <= endTimeInMinutes
+		);
 	};
 
 	const initials = getInitials(name);
