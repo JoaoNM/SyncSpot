@@ -135,10 +135,23 @@ const BottomSection: React.FC<{
 		timezone: string
 	): boolean => {
 		const now = moment().tz(timezone);
-		const startTime = moment.tz(start, "HH:mm", timezone);
-		const endTime = moment.tz(end, "HH:mm", timezone);
+		const nowInMinutes = now.hours() * 60 + now.minutes();
 
-		return now.isBetween(startTime, endTime);
+		const [startHour, startMinute] = start.split(":").map(Number);
+		const [endHour, endMinute] = end.split(":").map(Number);
+
+		const startTimeInMinutes = startHour * 60 + startMinute;
+		const endTimeInMinutes = endHour * 60 + endMinute;
+
+		if (startTimeInMinutes <= endTimeInMinutes) {
+			return (
+				nowInMinutes >= startTimeInMinutes && nowInMinutes <= endTimeInMinutes
+			);
+		} else {
+			return (
+				nowInMinutes >= startTimeInMinutes || nowInMinutes <= endTimeInMinutes
+			);
+		}
 	};
 
 	const userAvailability = users.map((user) =>
