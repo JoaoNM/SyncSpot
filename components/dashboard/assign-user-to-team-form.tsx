@@ -3,8 +3,8 @@
 
 import { useState, useEffect } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import { useAtom } from "jotai";
 import { toast } from "@/components/ui/use-toast";
@@ -68,7 +68,7 @@ const AssignUserToTeamForm = () => {
 			<DialogTrigger asChild>
 				<Button variant="outline" size="xs">
 					<span>Add Teammate</span>
-				</Button>
+				</button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[525px]">
 				<DialogHeader>
@@ -95,7 +95,7 @@ const AssignUserToTeamForm = () => {
 							onChange={(e) => setTeamId(e.target.value)}
 						/>
 					</div>
-					<Button type="submit">Assign User to Team</Button>
+					<Button type="submit">Assign User to Team</button>
 				</form> */}
 				<div className="flex flex-col gap-4 pt-3">
 					<div>
@@ -114,7 +114,7 @@ const AssignUserToTeamForm = () => {
 							onClick={handleSubmit}
 						>
 							Add User
-						</Button>
+						</button>
 					</DialogFooter>
 				</div>
 			</DialogContent>

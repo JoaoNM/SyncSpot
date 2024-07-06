@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { userAtom } from "@/store/authAtom";
 import { useAtom } from "jotai";
 import { toast } from "@/components/ui/use-toast";
@@ -67,7 +67,7 @@ const TeamForm = () => {
 				<Button variant="outline" size="xs">
 					<PlusCircledIcon className="h-3 w-3 stroke-1 mr-1.5 stroke-primary" />
 					<span className="text-primary">Create Team</span>
-				</Button>
+				</button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[525px]">
 				<DialogHeader>
@@ -97,7 +97,7 @@ const TeamForm = () => {
 					<DialogFooter>
 						<Button className="mt-4" type="submit" disabled={isLoading}>
 							Create Team
-						</Button>
+						</button>
 					</DialogFooter>
 				</form>
 			</DialogContent>

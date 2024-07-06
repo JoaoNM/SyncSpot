@@ -69,7 +69,7 @@ export const ModalForgotPassword: FC<ModalChangePasswordProps> = ({
           </p>
           <Button disabled={isLoading} onClick={() => onSubmit()}>
             Submit
-          </Button>
+          </button>
         </DialogContent>
       </Dialog>
     </>

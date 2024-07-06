@@ -58,7 +58,7 @@ export const NavBar: FC = () => {
 												)}
 											/>
 											Overview
-										</Button>
+										</button>
 										<Button
 											size="xs"
 											variant="outline"
@@ -77,7 +77,7 @@ export const NavBar: FC = () => {
 												)}
 											/>
 											Overlap
-										</Button>
+										</button>
 										<TeamForm />
 									</div>
 								</>

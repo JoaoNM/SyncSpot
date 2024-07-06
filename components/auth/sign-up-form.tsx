@@ -123,7 +123,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ onShowLogin, onSignUp }) => {
 								</FormItem>
 							)}
 						/>
-						<Button type="submit">Sign Up</Button>
+						<Button type="submit">Sign Up</button>
 					</fieldset>
 				</form>
 			</Form>
@@ -132,7 +132,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ onShowLogin, onSignUp }) => {
 				Already joined?{" "}
 				<Button variant="link" onClick={onShowLogin}>
 					Sign in instead.
-				</Button>
+				</button>
 			</p>
 		</>
 	);

@@ -32,7 +32,7 @@ export default function Home() {
 						</p>
 						<div className="gap-4 flex flex-col">
 							<Link href="/login">
-								<Button size="lg">Get Started!</Button>
+								<Button size="lg">Get Started!</button>
 							</Link>
 							<Link
 								target="_blank"
@@ -40,7 +40,7 @@ export default function Home() {
 							>
 								<Button size="lg" variant="link">
 									View Project on GitHub &rarr;
-								</Button>
+								</button>
 							</Link>
 						</div>
 					</div>
