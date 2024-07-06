@@ -74,7 +74,7 @@ export const Dashboard: FC = () => {
 		)
 	);
 
-	const handleValueChange = (value: number[]) => {
+	const handleValueChange = (value: number) => {
 		setSliderValue(value);
 	};
 
