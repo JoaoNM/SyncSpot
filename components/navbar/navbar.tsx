@@ -11,8 +11,10 @@ import { LayersIcon, ClockIcon } from "@radix-ui/react-icons";
 import TeamForm from "@/components/dashboard/team-form";
 import { useAtom } from "jotai";
 import { viewAtom } from "@/store/viewAtom";
+import { useUser } from "reactfire";
 
 export const NavBar: FC = () => {
+	const { data, hasEmitted } = useUser();
 	const [view, setView] = useAtom(viewAtom);
 
 	return (
@@ -33,47 +35,55 @@ export const NavBar: FC = () => {
 							</div>
 						</Link>
 						<div className="flex items-center justify-between grow">
-							<div className="flex gap-2 h-fit items-center">
-								<Button
-									size="xs"
-									variant="outline"
-									className={cn(
-										view === "overview"
-											? "text-white bg-primary border-none hover:bg-primary"
-											: "text-primary",
-										"hidden md:flex"
-									)}
-									onClick={() => setView("overview")}
-								>
-									<ClockIcon
-										className={cn(
-											"h-3 w-3 mr-1.5",
-											view === "overview" ? "stroke-white" : "stroke-primary"
-										)}
-									/>
-									Overview
-								</Button>
-								<Button
-									size="xs"
-									variant="outline"
-									className={cn(
-										view === "overlap"
-											? "text-white bg-primary border-none hover:bg-primary"
-											: "text-primary",
-										"hidden md:flex"
-									)}
-									onClick={() => setView("overlap")}
-								>
-									<LayersIcon
-										className={cn(
-											"h-3 w-3 mr-1.5",
-											view === "overlap" ? "stroke-white" : "stroke-primary"
-										)}
-									/>
-									Overlap
-								</Button>
-								<TeamForm />
-							</div>
+							{hasEmitted && data ? (
+								<>
+									<div className="flex gap-2 h-fit items-center">
+										<Button
+											size="xs"
+											variant="outline"
+											className={cn(
+												view === "overview"
+													? "text-white bg-primary border-none hover:bg-primary"
+													: "text-primary",
+												"hidden md:flex"
+											)}
+											onClick={() => setView("overview")}
+										>
+											<ClockIcon
+												className={cn(
+													"h-3 w-3 mr-1.5",
+													view === "overview"
+														? "stroke-white"
+														: "stroke-primary"
+												)}
+											/>
+											Overview
+										</Button>
+										<Button
+											size="xs"
+											variant="outline"
+											className={cn(
+												view === "overlap"
+													? "text-white bg-primary border-none hover:bg-primary"
+													: "text-primary",
+												"hidden md:flex"
+											)}
+											onClick={() => setView("overlap")}
+										>
+											<LayersIcon
+												className={cn(
+													"h-3 w-3 mr-1.5",
+													view === "overlap" ? "stroke-white" : "stroke-primary"
+												)}
+											/>
+											Overlap
+										</Button>
+										<TeamForm />
+									</div>
+								</>
+							) : (
+								<span></span>
+							)}
 							<div className="flex items-center space-x-4">
 								<NavbarUserLinks />
 							</div>
