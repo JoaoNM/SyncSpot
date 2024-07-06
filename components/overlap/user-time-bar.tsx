@@ -39,8 +39,15 @@ const TimeBar: React.FC<TimeBarProps> = ({
 			/>
 			<div className="flex w-full overflow-hidden rounded-lg bg-white border border-gray-300">
 				{hours.map((hour, index) => {
-					const isWorkingHour =
-						hour.hours() >= workingHoursStart && hour.hours() < workingHoursEnd;
+					const currentHour = hour.hours();
+					let isWorkingHour = false;
+					if (workingHoursStart < workingHoursEnd) {
+						isWorkingHour =
+							currentHour >= workingHoursStart && currentHour < workingHoursEnd;
+					} else {
+						isWorkingHour =
+							currentHour >= workingHoursStart || currentHour < workingHoursEnd;
+					}
 					const isLowOpacity = hour.hours() < 6;
 					const isDaySlot = hour.hours() === 23;
 
