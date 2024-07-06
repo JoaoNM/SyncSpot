@@ -43,6 +43,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-toast", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.2.1"],\
           ["@radix-ui/react-toggle", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@radix-ui/react-tooltip", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.2"],\
+          ["@types/next", "npm:9.0.0"],\
           ["@types/node", "npm:20.14.9"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
@@ -3125,6 +3126,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/next", [\
+      ["npm:9.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/@types-next-npm-9.0.0-62b0508727-10c0.zip/node_modules/@types/next/",\
+        "packageDependencies": [\
+          ["@types/next", "npm:9.0.0"],\
+          ["next", "virtual:62b0508727b322843db5bc19ea87d237b18bda6e866663cd81ede043ba88bc8903143df2b7594da990d5d46d93b66e02e795d47efdcc4c94a3b7b41d79be6421#npm:14.2.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/node", [\
       ["npm:20.14.9", {\
         "packageLocation": "../../../.yarn/berry/cache/@types-node-npm-20.14.9-a4571e1932-10c0.zip/node_modules/@types/node/",\
@@ -4476,6 +4487,51 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:62b0508727b322843db5bc19ea87d237b18bda6e866663cd81ede043ba88bc8903143df2b7594da990d5d46d93b66e02e795d47efdcc4c94a3b7b41d79be6421#npm:14.2.4", {\
+        "packageLocation": "./.yarn/__virtual__/next-virtual-66b7106738/4/.yarn/berry/cache/next-npm-14.2.4-37fb4e5b51-10c0.zip/node_modules/next/",\
+        "packageDependencies": [\
+          ["next", "virtual:62b0508727b322843db5bc19ea87d237b18bda6e866663cd81ede043ba88bc8903143df2b7594da990d5d46d93b66e02e795d47efdcc4c94a3b7b41d79be6421#npm:14.2.4"],\
+          ["@next/env", "npm:14.2.4"],\
+          ["@next/swc-darwin-arm64", "npm:14.2.4"],\
+          ["@next/swc-darwin-x64", "npm:14.2.4"],\
+          ["@next/swc-linux-arm64-gnu", "npm:14.2.4"],\
+          ["@next/swc-linux-arm64-musl", "npm:14.2.4"],\
+          ["@next/swc-linux-x64-gnu", "npm:14.2.4"],\
+          ["@next/swc-linux-x64-musl", "npm:14.2.4"],\
+          ["@next/swc-win32-arm64-msvc", "npm:14.2.4"],\
+          ["@next/swc-win32-ia32-msvc", "npm:14.2.4"],\
+          ["@next/swc-win32-x64-msvc", "npm:14.2.4"],\
+          ["@opentelemetry/api", null],\
+          ["@playwright/test", null],\
+          ["@swc/helpers", "npm:0.5.5"],\
+          ["@types/opentelemetry__api", null],\
+          ["@types/playwright__test", null],\
+          ["@types/react", null],\
+          ["@types/react-dom", null],\
+          ["@types/sass", null],\
+          ["busboy", "npm:1.6.0"],\
+          ["caniuse-lite", "npm:1.0.30001640"],\
+          ["graceful-fs", "npm:4.2.11"],\
+          ["postcss", "npm:8.4.31"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["sass", null],\
+          ["styled-jsx", "virtual:66b710673888141ee740b89075d5d2c14583561e6a2e1cdc0c27f04107ec16a22fe0a7424db0aca3b626fa542ce37b08f72e7a8c2a9eddcb6f6fb1b6274c9aed#npm:5.1.1"]\
+        ],\
+        "packagePeers": [\
+          "@opentelemetry/api",\
+          "@playwright/test",\
+          "@types/opentelemetry__api",\
+          "@types/playwright__test",\
+          "@types/react-dom",\
+          "@types/react",\
+          "@types/sass",\
+          "react-dom",\
+          "react",\
+          "sass"\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:14.2.4", {\
         "packageLocation": "./.yarn/__virtual__/next-virtual-97caccc279/4/.yarn/berry/cache/next-npm-14.2.4-37fb4e5b51-10c0.zip/node_modules/next/",\
         "packageDependencies": [\
@@ -5398,6 +5454,28 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:66b710673888141ee740b89075d5d2c14583561e6a2e1cdc0c27f04107ec16a22fe0a7424db0aca3b626fa542ce37b08f72e7a8c2a9eddcb6f6fb1b6274c9aed#npm:5.1.1", {\
+        "packageLocation": "./.yarn/__virtual__/styled-jsx-virtual-117c912766/4/.yarn/berry/cache/styled-jsx-npm-5.1.1-2557a209ba-10c0.zip/node_modules/styled-jsx/",\
+        "packageDependencies": [\
+          ["styled-jsx", "virtual:66b710673888141ee740b89075d5d2c14583561e6a2e1cdc0c27f04107ec16a22fe0a7424db0aca3b626fa542ce37b08f72e7a8c2a9eddcb6f6fb1b6274c9aed#npm:5.1.1"],\
+          ["@babel/core", null],\
+          ["@types/babel-plugin-macros", null],\
+          ["@types/babel__core", null],\
+          ["@types/react", null],\
+          ["babel-plugin-macros", null],\
+          ["client-only", "npm:0.0.1"],\
+          ["react", null]\
+        ],\
+        "packagePeers": [\
+          "@babel/core",\
+          "@types/babel-plugin-macros",\
+          "@types/babel__core",\
+          "@types/react",\
+          "babel-plugin-macros",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["virtual:97caccc2792c344997742f07b0a7b14b90c1394d97403f8da6ccb1eb54ecfdf9c640268e657fcd91f326b9bf7bfbd85ef209052cf4cdc7729e777a08d1e695ab#npm:5.1.1", {\
         "packageLocation": "./.yarn/__virtual__/styled-jsx-virtual-6d64db40b2/4/.yarn/berry/cache/styled-jsx-npm-5.1.1-2557a209ba-10c0.zip/node_modules/styled-jsx/",\
         "packageDependencies": [\
@@ -5468,6 +5546,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-toast", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.2.1"],\
           ["@radix-ui/react-toggle", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.0"],\
           ["@radix-ui/react-tooltip", "virtual:fd6e29e2ef8ee6046a8f0c55809d6256a72aee763209cb7099766fe822f0b20c60415ac1b7cce035fc5b2fe05f1a0ee6c26fc2a8ca041e98a27d7363dc607309#npm:1.1.2"],\
+          ["@types/next", "npm:9.0.0"],\
           ["@types/node", "npm:20.14.9"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\

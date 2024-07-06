@@ -15,7 +15,8 @@
 		"incremental": true,
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"next/*": ["node_modules/next/*"]
 		},
 		"plugins": [
 			{

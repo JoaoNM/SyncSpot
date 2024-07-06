@@ -2009,6 +2009,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/next@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@types/next@npm:9.0.0"
+  dependencies:
+    next: "npm:*"
+  checksum: 10c0/2148aadba745e6f094d33e483875656dece95e4049d7d99ce0ca0678035d1d48e73d6e2cba45e2b5fb0762bfd7b48587139d7ecf464876fb4fde9ff06cc249b8
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:latest":
   version: 20.14.9
   resolution: "@types/node@npm:20.14.9"
@@ -3171,7 +3180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^14.2.4":
+"next@npm:*, next@npm:^14.2.4":
   version: 14.2.4
   resolution: "next@npm:14.2.4"
   dependencies:
@@ -3959,6 +3968,7 @@ __metadata:
     "@radix-ui/react-toast": "npm:^1.1.5"
     "@radix-ui/react-toggle": "npm:^1.1.0"
     "@radix-ui/react-tooltip": "npm:^1.1.2"
+    "@types/next": "npm:^9.0.0"
     "@types/node": "npm:latest"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:latest"
