@@ -90,7 +90,6 @@ export const Dashboard: FC = () => {
 		const fetchData = async () => {
 			if (user) {
 				const data = await fetchUserData(user.uid);
-				console.log(data);
 				const teamIds = Object.keys(data.team_ids ? data.team_ids : {});
 				if (data) {
 					setUserData({
@@ -107,15 +106,11 @@ export const Dashboard: FC = () => {
 						description: "We had an error fetching your data. Sorry.",
 					});
 				}
-				console.log("Set user data here");
 				if (teamIds.length > 0) {
 					let newTeamsList = [...(teams || [])];
 					for (let i = 0; i < teamIds.length; i++) {
 						const currentTeamId = teamIds[i];
-						console.log("team current ", currentTeamId);
 						const data = await fetchTeamData(currentTeamId);
-						console.log("teams: ", teams);
-						console.log("data: ", data);
 						if (data !== null) {
 							newTeamsList.push({
 								name: data.teamName,

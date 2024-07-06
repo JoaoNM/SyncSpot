@@ -23,14 +23,6 @@ const UserForm = () => {
 		if (userData) {
 			setUsername(userData.name);
 			setBaseTimezone(userData.timezone || "GMT");
-			console.log(
-				"slider values attempt: ",
-				userData.workingHours.start,
-				[userData.workingHours.start, userData.workingHours.end].map(
-					(time) =>
-						parseInt(time.split(":")[0]) * 2 + parseInt(time.split(":")[1]) / 30
-				)
-			);
 			setSliderValues(
 				[userData.workingHours.start, userData.workingHours.end].map(
 					(time) =>

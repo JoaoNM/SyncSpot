@@ -51,13 +51,9 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
 		try {
 			setIsLoading(true);
 			const user = await signInWithEmailAndPassword(auth, email, password);
-			console.log("Logged user");
-			console.log(user);
 			if (user?.user.uid) {
-				console.log("true");
 				const data = await fetchUserData(user?.user.uid);
 				if (data) {
-					console.log(data);
 					setUser(data);
 				} else {
 					console.log("none");

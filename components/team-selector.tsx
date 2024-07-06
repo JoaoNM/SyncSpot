@@ -9,16 +9,11 @@ const TeamSelector: React.FC = () => {
 	const [teams] = useAtom(teamsAtom);
 	const { readUserInfoFromTeam } = useFirebaseOperations();
 
-	console.log(selectedTeam);
-
 	const handleTeamClick = async (team: TeamType) => {
 		if (team && team.teamId) {
 			const data = await readUserInfoFromTeam(team);
-			console.log("SELECTED TEAM DATA: ", data);
-
 			setSelectedTeam(data);
 		}
-		console.log(team.teamId);
 	};
 
 	return (

@@ -47,7 +47,6 @@ export const useFirebaseOperations = () => {
 		description: string,
 		userId: string
 	) => {
-		console.log("creating team");
 		try {
 			const teamRef = ref(database, "teams");
 			const newTeamRef = push(teamRef);
@@ -62,10 +61,6 @@ export const useFirebaseOperations = () => {
 			// Add the team ID to the user's team_ids
 			const userTeamRef = ref(database, `users/${userId}/team_ids/${teamId}`);
 			await set(userTeamRef, true);
-
-			console.log(
-				`Team ${teamName} created with ID ${teamId} and user ${userId} added to the team.`
-			);
 		} catch (error) {
 			console.error("Error creating team:", error);
 		}
@@ -111,7 +106,6 @@ export const useFirebaseOperations = () => {
 			const teamUserRef = ref(database, `teams/${teamId}/user_ids/${userId}`);
 			await remove(userTeamRef);
 			await remove(teamUserRef);
-			console.log(`User with ID ${userId} removed from team ${teamId}`);
 		} catch (error) {
 			console.error("Error removing user from team:", error);
 		}
@@ -142,7 +136,6 @@ export const useFirebaseOperations = () => {
 			const teamRef = ref(database, `teams/${teamId}/user_ids/${userId}`);
 			await set(userRef, true);
 			await set(teamRef, true);
-			console.log(`User with email ${email} assigned to team ${teamId}`);
 		} catch (error) {
 			console.error("Error assigning user to team:", error);
 		}
@@ -155,7 +148,6 @@ export const useFirebaseOperations = () => {
 		if (snapshot.exists()) {
 			return snapshot.val();
 		} else {
-			console.log("No data available");
 			return null;
 		}
 	};
@@ -174,7 +166,6 @@ export const useFirebaseOperations = () => {
 				workingHours: userData.working_hours,
 			};
 		} else {
-			console.log("No data available");
 			return null;
 		}
 	};
@@ -185,7 +176,6 @@ export const useFirebaseOperations = () => {
 		if (snapshot.exists()) {
 			return snapshot.val();
 		} else {
-			console.log("No data available");
 			return null;
 		}
 	};
@@ -194,7 +184,6 @@ export const useFirebaseOperations = () => {
 		teamData: TeamType
 	): Promise<SelectedTeamType | null> => {
 		try {
-			console.log("SELECTED hello ", teamData);
 			const userPromises = teamData.userIds.map((userId) =>
 				fetchUserData(userId)
 			);
@@ -218,8 +207,6 @@ export const useFirebaseOperations = () => {
 				users: filteredUsers,
 				schedules,
 			};
-
-			console.log("SELECTED FB:", selectedTeam);
 			return selectedTeam;
 		} catch (error) {
 			console.error("Error reading user info from team:", error);
