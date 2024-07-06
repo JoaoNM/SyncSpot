@@ -3171,7 +3171,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:latest":
+"next@npm:^14.2.4":
   version: 14.2.4
   resolution: "next@npm:14.2.4"
   dependencies:
@@ -3972,7 +3972,7 @@ __metadata:
     lucide-react: "npm:^0.284.0"
     moment: "npm:^2.30.1"
     moment-timezone: "npm:^0.5.45"
-    next: "npm:latest"
+    next: "npm:^14.2.4"
     next-transpile-modules: "npm:^10.0.1"
     path: "npm:^0.12.7"
     postcss: "npm:latest"
