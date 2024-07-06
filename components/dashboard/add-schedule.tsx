@@ -18,6 +18,26 @@ import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { toast } from "@/components/ui/use-toast";
 import moment from "moment-timezone";
 
+export const formatWorkingHours = (
+	sliderValues: number[],
+	invertWorkingHours: boolean
+) => {
+	const nearestHalfHourStart = Math.round(sliderValues[0] * 30);
+	const nearestHalfHourEnd = Math.round(sliderValues[1] * 30);
+	const timeStringStart = moment()
+		.startOf("day")
+		.minutes(nearestHalfHourStart)
+		.format("HH:mm");
+	const timeStringEnd = moment()
+		.startOf("day")
+		.minutes(nearestHalfHourEnd)
+		.format("HH:mm");
+	return {
+		start: invertWorkingHours ? timeStringEnd : timeStringStart,
+		end: invertWorkingHours ? timest : timeStringEnd,
+	};
+};
+
 export const AddSchedule = () => {
 	const [selectedTeam] = useAtom(selectedTeamAtom);
 	const [scheduleName, setScheduleName] = useState<string>("");
@@ -29,26 +49,6 @@ export const AddSchedule = () => {
 	const [baseTimezone, setBaseTimezone] = useState<string>("GMT");
 
 	const { addCustomSchedule } = useFirebaseOperations();
-
-	const formatWorkingHours = (
-		sliderValues: number[],
-		invertWorkingHours: boolean
-	) => {
-		const nearestHalfHourStart = Math.round(sliderValues[0] * 30);
-		const nearestHalfHourEnd = Math.round(sliderValues[1] * 30);
-		const timeStringStart = moment()
-			.startOf("day")
-			.minutes(nearestHalfHourStart)
-			.format("HH:mm");
-		const timeStringEnd = moment()
-			.startOf("day")
-			.minutes(nearestHalfHourEnd)
-			.format("HH:mm");
-		return {
-			start: invertWorkingHours ? timeStringEnd : timeStringStart,
-			end: invertWorkingHours ? timeStringStart : timeStringEnd,
-		};
-	};
 
 	const handleSubmit = async () => {
 		if (
