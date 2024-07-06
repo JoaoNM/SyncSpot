@@ -2,6 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import moment from "moment-timezone";
+import { ScheduleType } from "@/store/selectedTeamAtom";
+import { UserType } from "@/store/authAtom";
+import ProfileIcon from "@/components/profile-icon";
+import {
+	DoubleArrowUpIcon,
+	MinusCircledIcon,
+	Cross1Icon,
+} from "@radix-ui/react-icons";
 
 export const TimeRuler: React.FC<{ primaryColor: boolean }> = ({
 	primaryColor,
@@ -117,20 +125,101 @@ const MiddleSection: React.FC<{ time: string; offset: string }> = ({
 	);
 };
 
-const BottomSection: React.FC<{}> = ({}) => {
+const BottomSection: React.FC<{
+	users: UserType[];
+	schedules: ScheduleType[];
+}> = ({ users, schedules }) => {
+	const checkAvailability = (
+		start: string,
+		end: string,
+		timezone: string
+	): boolean => {
+		const now = moment().tz(timezone);
+		const startTime = moment.tz(start, "HH:mm", timezone);
+		const endTime = moment.tz(end, "HH:mm", timezone);
+
+		return now.isBetween(startTime, endTime);
+	};
+
+	const userAvailability = users.map((user) =>
+		checkAvailability(
+			user.workingHours.start,
+			user.workingHours.end,
+			user.timezone
+		)
+	);
+
+	const scheduleAvailability = schedules.map((schedule) =>
+		checkAvailability(
+			schedule.workingHours.start,
+			schedule.workingHours.end,
+			schedule.timezone
+		)
+	);
+
+	const allAvailable = [...userAvailability, ...scheduleAvailability].every(
+		(available) => available
+	);
+	const someAvailable = [...userAvailability, ...scheduleAvailability].some(
+		(available) => available
+	);
+
 	return (
-		<div className="flex justify-between items-center p-2 bg-white text-white z-10 relative rounded-lg">
-			<button className="p-1 hover:bg-gray-600 rounded">➖</button>
-			<span>Joao Matos</span>
+		<div className="flex justify-between bg-white items-center p-2 text-primary z-10 relative rounded-lg">
+			<div
+				className={`rounded-full p-2 ${
+					allAvailable
+						? "bg-green-100"
+						: someAvailable
+						? "bg-amber-100"
+						: "bg-red-100"
+				}`}
+			>
+				{allAvailable ? (
+					<DoubleArrowUpIcon className="stroke-green-500 h-4 w-4" />
+				) : someAvailable ? (
+					<MinusCircledIcon className="stroke-amber-400 h-4 w-4" />
+				) : (
+					<Cross1Icon className="stroke-red-600 h-3.5 w-3.5" />
+				)}
+			</div>
+			<div className="flex mr-1.5">
+				{users &&
+					users.map((user: UserType) => (
+						<div className="-mr-1.5">
+							<ProfileIcon
+								name={user.name}
+								timezone={user.timezone}
+								workingHours={user.workingHours}
+							/>
+						</div>
+					))}
+				{schedules &&
+					schedules.map((schedule: UserType) => (
+						<div className="-mr-1.5">
+							<ProfileIcon
+								name={schedule.name}
+								timezone={schedule.timezone}
+								workingHours={schedule.workingHours}
+							/>
+						</div>
+					))}
+			</div>
 		</div>
 	);
 };
 
 interface TimezoneCardProps {
 	timezone: string;
+	users: UserType[];
+	schedules: ScheduleType[];
 }
 
-const TimezoneCard: React.FC<TimezoneCardProps> = ({ timezone }) => {
+const TimezoneCard: React.FC<TimezoneCardProps> = ({
+	timezone,
+	users,
+	schedules,
+}) => {
 	const [currentTime, setCurrentTime] = useState(moment().tz(timezone));
 	const [localTime, setLocalTime] = useState(moment());
 
@@ -160,7 +249,7 @@ const TimezoneCard: React.FC<TimezoneCardProps> = ({ timezone }) => {
 				/>
 				<TimeRuler />
 				<TimeProgressBar timezone={timezone} />
-				<BottomSection />
+				<BottomSection users={users} schedules={schedules} />
 			</div>
 		</div>
 	);
