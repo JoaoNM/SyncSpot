@@ -37,8 +37,6 @@ const UserForm = () => {
 						parseInt(time.split(":")[0]) * 2 + parseInt(time.split(":")[1]) / 30
 				)
 			);
-			// setSliderValues(userData.working_hours.start || "08:00");
-			// setWorkingHoursEnd(userData.working_hours?.end || "16:00");
 		}
 	}, [userData]);
 
@@ -88,27 +86,7 @@ const UserForm = () => {
 					setBaseTimezone={setBaseTimezone}
 				/>
 			</div>
-			{/* <div>
-				<label>Timezone:</label>
-				<TimezoneSelect value={timezone} onChange={setTimezone} />
-			</div>
-			<div>
-				<label>Working Hours Start: </label>
-				<input
-					type="time"
-					value={workingHoursStart}
-					onChange={(e) => setWorkingHoursStart(e.target.value)}
-				/>
-			</div>
-			<div>
-				<label>Working Hours End: </label>
-				<input
-					type="time"
-					value={workingHoursEnd}
-					onChange={(e) => setWorkingHoursEnd(e.target.value)}
-				/>
-			</div> */}
-			<Button type="submit">Submit</Button>
+			<Button type="submit">Save</Button>
 		</form>
 	);
 };
