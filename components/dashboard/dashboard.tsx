@@ -24,7 +24,7 @@ import { viewAtom } from "@/store/viewAtom";
 export const Dashboard: FC = () => {
 	const [startHour, setStartHour] = useState<number>(6);
 	const [baseTimezone, setBaseTimezone] = useState<string>("GMT");
-	const [sliderValue, setSliderValue] = useState<number[]>(0);
+	const [sliderValue, setSliderValue] = useState<number>(0);
 	const [selectedTeam, setSelectedTeam] = useAtom(selectedTeamAtom);
 	const [view] = useAtom(viewAtom);
 	const [userData, setUserData] = useAtom(userAtom);
