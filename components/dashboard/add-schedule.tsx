@@ -9,7 +9,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import NewScheduleSlider from "@/components/dashboard/new-schedule-slider";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";

@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import AssignUserToTeamForm from "./assign-user-to-team-form";
+import AssignUserToTeamForm from "@/components/dashboard/assign-user-to-team-form";
 import { useUser } from "reactfire";
 import { useFirebaseOperations } from "@/lib/firebase-operations";
 import { UserType, userAtom } from "@/store/authAtom";

@@ -32,7 +32,7 @@ import { userAtom } from "@/store/authAtom";
 import { selectedTeamAtom } from "@/store/selectedTeamAtom";
 import { teamsAtom } from "@/store/teamsAtom";
 import { useAtom } from "jotai";
-import UserForm from "../dashboard/user-form";
+import UserForm from "@/components/dashboard/user-form";
 
 export function UserNav() {
 	const { data } = useUser();
