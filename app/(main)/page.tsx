@@ -17,10 +17,7 @@ export default function Home() {
 			<div className="grow flex flex-col items-center justify-evenly">
 				<section className="space-y-6">
 					<div className="container flex flex-col items-center gap-8 text-center">
-						<Badge
-							variant="ghost"
-							className="space-x-4 font-normal text-sm mt-8"
-						>
+						<Badge className="space-x-4 font-normal text-sm mt-8">
 							100% Free & Vegan!
 						</Badge>
 						<h1 className="max-w-4xl font-heading font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">
