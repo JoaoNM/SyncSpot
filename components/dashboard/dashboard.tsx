@@ -147,7 +147,7 @@ export const Dashboard: FC = () => {
 					<AddSchedule />
 				</div>
 			) : (
-				<h1>Loading!</h1>
+				<h1 className="text-muted-foreground">Create your first team</h1>
 			)}
 			<div className="flex flex-col gap-3  w-full">
 				{selectedTeam && (
