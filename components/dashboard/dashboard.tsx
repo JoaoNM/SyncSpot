@@ -25,12 +25,13 @@ export const Dashboard: FC = () => {
 	const [startHour, setStartHour] = useState<number>(6);
 	const [baseTimezone, setBaseTimezone] = useState<string>("GMT");
 	const [sliderValue, setSliderValue] = useState<number[]>(0);
-	const [selectedTeam] = useAtom(selectedTeamAtom);
+	const [selectedTeam, setSelectedTeam] = useAtom(selectedTeamAtom);
 	const [view] = useAtom(viewAtom);
 	const [userData, setUserData] = useAtom(userAtom);
 	const [teams, setTeams] = useAtom(teamsAtom);
 	const { data: user } = useUser();
-	const { fetchUserData, fetchTeamData } = useFirebaseOperations();
+	const { fetchUserData, fetchTeamData, readUserInfoFromTeam } =
+		useFirebaseOperations();
 
 	const [timezoneMap, setTimezoneMap] = useState<
 		Map<string, { users: UserType[]; schedules: ScheduleType[] }>
@@ -131,6 +132,18 @@ export const Dashboard: FC = () => {
 
 		fetchData();
 	}, [user]);
+
+	useEffect(() => {
+		const fetchFirstTeam = async () => {
+			if (user && teams.length > 0) {
+				const data = await readUserInfoFromTeam(teams[0]);
+				setSelectedTeam(data);
+			}
+		};
+
+		fetchFirstTeam();
+	}, [user, teams]);
+
 	return (
 		<>
 			{teams && teams.length > 0 ? (
