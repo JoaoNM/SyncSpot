@@ -1,5 +1,11 @@
 import React from "react";
 import moment from "moment-timezone";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ProfileIconProps {
 	name: string;
@@ -38,14 +44,32 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({
 	const available = isWithinWorkingHours(workingHours, timezone);
 
 	return (
-		<div className="relative flex items-center justify-center w-10 h-10 border-[0.4px] border-[#E0E7FF] shadow-sm border-primary rounded-full">
-			<span className="text-primary text-[0.7rem] font-medium">{initials}</span>
-			<div
-				className={`absolute top-0.5 right-0 w-2 h-2 rounded-full ${
-					available ? "bg-green-500" : "bg-red-500"
-				}`}
-			></div>
-		</div>
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger>
+					<div className="relative flex items-center justify-center w-9 h-9 border-[0.4px] bg-white border-[#E0E7FF] shadow-sm border-primary rounded-full">
+						<span className="text-primary text-[0.65rem] font-medium">
+							{initials}
+						</span>
+						<div
+							className={`absolute top-0.5 right-0 w-2 h-2 rounded-full ${
+								available ? "bg-green-500" : "bg-red-500"
+							}`}
+						></div>
+					</div>
+				</TooltipTrigger>
+				<TooltipContent>
+					<p className="font-semibold">{name}</p>
+					<p>
+						{available ? "Available" : "Unavailable"}
+						<span className="text-muted-foreground">
+							{" "}
+							({moment().tz(timezone).format("hh:mm A")})
+						</span>
+					</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
 	);
 };
 
