@@ -28,7 +28,7 @@ const timezones = moment.tz.names().map((tz) => ({
 
 interface HourSelectProps {
 	value: string | undefined;
-	onChange: (value: number) => void;
+	onChange: (value: string) => void;
 }
 
 export function TimezoneSelect({ value, onChange }: HourSelectProps) {
