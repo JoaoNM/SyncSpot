@@ -1,6 +1,6 @@
 import { ref, set, update, push, get, child, remove } from "firebase/database";
 import { useDatabase } from "reactfire";
-import { SelectedTeamType } from "@/store/selectedTeamAtom";
+import { ScheduleType, SelectedTeamType } from "@/store/selectedTeamAtom";
 import { TeamType } from "@/store/teamsAtom";
 
 export const useFirebaseOperations = () => {
@@ -193,7 +193,7 @@ export const useFirebaseOperations = () => {
 
 			const schedulesRef = ref(database, `teams/${teamData.teamId}/schedules`);
 			const schedulesSnapshot = await get(schedulesRef);
-			const schedulesData = schedulesSnapshot.val();
+			const schedulesData: { [key: string]: Omit<ScheduleType, 'id'> } = schedulesSnapshot.val();
 
 			const schedules = schedulesData
 				? Object.entries(schedulesData).map(([id, schedule]) => ({
