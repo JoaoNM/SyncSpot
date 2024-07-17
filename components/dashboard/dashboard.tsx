@@ -90,8 +90,8 @@ export const Dashboard: FC = () => {
 		const fetchData = async () => {
 			if (user) {
 				const data = await fetchUserData(user.uid);
-				const teamIds = Object.keys(data.team_ids ? data.team_ids : {});
 				if (data) {
+					const teamIds = Object.keys(data.team_ids ? data.team_ids : {});
 					setUserData({
 						name: data.name,
 						email: data.email,
@@ -100,27 +100,27 @@ export const Dashboard: FC = () => {
 						workingHours: data.workingHours,
 						teamIds,
 					});
+					if (teamIds.length > 0) {
+						let newTeamsList = [...(teams || [])];
+						for (let i = 0; i < teamIds.length; i++) {
+							const currentTeamId = teamIds[i];
+							const data = await fetchTeamData(currentTeamId);
+							if (data !== null) {
+								newTeamsList.push({
+									name: data.teamName,
+									teamId: currentTeamId,
+									description: data.description,
+									userIds: Object.keys(data.user_ids ? data.user_ids : {}),
+								});
+							}
+						}
+						setTeams(newTeamsList);
+					}
 				} else {
 					toast({
 						title: "Error",
 						description: "We had an error fetching your data. Sorry.",
 					});
-				}
-				if (teamIds.length > 0) {
-					let newTeamsList = [...(teams || [])];
-					for (let i = 0; i < teamIds.length; i++) {
-						const currentTeamId = teamIds[i];
-						const data = await fetchTeamData(currentTeamId);
-						if (data !== null) {
-							newTeamsList.push({
-								name: data.teamName,
-								teamId: currentTeamId,
-								description: data.description,
-								userIds: Object.keys(data.user_ids ? data.user_ids : {}),
-							});
-						}
-					}
-					setTeams(newTeamsList);
 				}
 			}
 		};
