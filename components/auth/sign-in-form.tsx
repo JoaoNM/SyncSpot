@@ -101,7 +101,7 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
 						)}
 					/>
 					<Button type="submit" disabled={isLoading}>
-						Submit
+						Sign In
 					</Button>
 				</form>
 			</Form>
