@@ -7,4 +7,4 @@ export interface TeamType {
 	userIds: string[];
 }
 
-export const teamsAtom = atom<[TeamType] | undefined>(undefined);
+export const teamsAtom = atom<TeamType[] | undefined>(undefined);
