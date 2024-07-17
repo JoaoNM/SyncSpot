@@ -21,7 +21,7 @@ export default function Home() {
 							variant="outline"
 							className="space-x-4 font-normal text-sm mt-8"
 						>
-							100% Free & Vegan!
+							100% Free!
 						</Badge>
 						<h1 className="max-w-4xl font-heading font-semibold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">
 							Timezones for Teams
