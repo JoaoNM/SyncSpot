@@ -17,7 +17,7 @@ import { Slider } from "@/components/ui/slider";
 import UpdateTeamForm from "@/components/dashboard/update-team-form";
 import { TimezoneSelect } from "@/components/timezone-select";
 import { HourSelect } from "@/components/dashboard/hour-select";
-import moment from "moment-timezone";
+import moment, { Moment } from "moment-timezone";
 import { AddSchedule } from "@/components/dashboard/add-schedule";
 import { viewAtom } from "@/store/viewAtom";
 
@@ -74,11 +74,11 @@ export const Dashboard: FC = () => {
 		)
 	);
 
-	const handleValueChange = (value: number) => {
-		setSliderValue(value);
+	const handleValueChange = (value: number[]) => {
+		setSliderValue(value[0]);
 	};
 
-	const generateTimestamp = (): string => {
+	const generateTimestamp = (): Moment => {
 		const date = moment
 			.tz(baseTimezone)
 			.startOf("day")
@@ -183,7 +183,7 @@ export const Dashboard: FC = () => {
 										<div className="my-3 flex gap-2">
 											<TimezoneSelect
 												value={baseTimezone}
-												onChange={setBaseTimezone}
+												onChange={(newTimezone: string) => setBaseTimezone(newTimezone)}
 											/>
 											<HourSelect value={startHour} onChange={setStartHour} />
 										</div>
