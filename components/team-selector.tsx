@@ -12,13 +12,13 @@ const TeamSelector: React.FC = () => {
 	const handleTeamClick = async (team: TeamType) => {
 		if (team && team.teamId) {
 			const data = await readUserInfoFromTeam(team);
-			setSelectedTeam(data);
+			if (data !== null) setSelectedTeam(data)
 		}
 	};
 
 	return (
 		<div className="flex overflow-x-scroll max-w-[80vw] whitespace-nowrap py-2 md:py-4 ">
-			{teams.map((team: TeamType) => (
+			{(teams || []).map((team: TeamType) => (
 				<div
 					key={team.teamId}
 					className={`inline-block mr-4 pr-4 py-2 hover:opacity-70 rounded-lg cursor-pointer transition-opacity duration-200 ${

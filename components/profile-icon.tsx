@@ -11,7 +11,7 @@ interface ProfileIconProps {
 	name: string;
 	workingHours: { start: string; end: string };
 	timezone: string;
-	currentTime?: string;
+	currentTime?: moment.Moment;
 }
 
 const ProfileIcon: React.FC<ProfileIconProps> = ({

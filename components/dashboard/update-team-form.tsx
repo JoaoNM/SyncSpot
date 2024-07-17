@@ -69,7 +69,15 @@ const UpdateTeamForm = () => {
 					title: "User Removed!",
 					description: "We've removed the user from your team",
 				});
-				if (userId === currentUser.userId) setIsDialogOpen(false);
+				if (currentUser !== undefined) {
+					if (userId === currentUser.userId) setIsDialogOpen(false);
+				} else {
+					toast({
+						title: "Error",
+						description: "Your user is undefined. Weird.",
+						variant: "destructive",
+					});
+				}
 			} catch {
 				toast({
 					title: "Error",
@@ -144,7 +152,7 @@ const UpdateTeamForm = () => {
 					</div>
 					<div className="flex flex-col gap-2">
 						<span className="text-sm font-semibold">Users</span>
-						{selectedTeam.users.map((user) => (
+						{selectedTeam && selectedTeam.users.map((user) => (
 							<>
 								<div className="flex justify-between">
 									<div className="flex items-center">
@@ -157,7 +165,7 @@ const UpdateTeamForm = () => {
 										size="xs"
 										onClick={() => handleRemoveUser(user.userId)}
 									>
-										{user.userId === currentUser.userId
+										{user.userId === currentUser?.userId
 											? "Leave Team"
 											: "Remove"}
 									</Button>
@@ -165,7 +173,7 @@ const UpdateTeamForm = () => {
 							</>
 						))}
 					</div>
-					{selectedTeam.schedules.length > 0 && (
+					{selectedTeam && selectedTeam.schedules.length > 0 && (
 						<div className="flex flex-col gap-2">
 							<span className="text-sm font-semibold">Schedules</span>
 							{selectedTeam.schedules.map((schedule) => (

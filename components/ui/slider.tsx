@@ -6,9 +6,13 @@ import { WidthIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 
+interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
+    showSecondThumb?: boolean;
+}
+
 const Slider = React.forwardRef<
-	React.ElementRef<typeof SliderPrimitive.Root>,
-	React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+React.ElementRef<typeof SliderPrimitive.Root>,
+SliderProps
 >(({ className, ...props }, ref) => (
 	<SliderPrimitive.Root
 		ref={ref}

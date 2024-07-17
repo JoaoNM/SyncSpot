@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment-timezone";
-import ProfileIcon from "@/components/profile-icon.tsx";
+import ProfileIcon from "@/components/profile-icon";
 
 interface UserTimeBarProps {
 	name: string;
@@ -13,7 +13,7 @@ interface UserTimeBarProps {
 interface TimeBarProps {
 	startTime: moment.Moment;
 	timezone: string;
-	currentTime: number;
+	currentTime: moment.Moment;
 	workingHoursStart: number;
 	workingHoursEnd: number;
 }
@@ -82,7 +82,7 @@ const TimeBar: React.FC<TimeBarProps> = ({
 };
 
 const CurrentTimeDisplay: React.FC<{
-	currentTime: number;
+	currentTime: moment.Moment;
 	timezone: string;
 	startTime: moment.Moment;
 }> = ({ currentTime, timezone, startTime }) => {

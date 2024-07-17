@@ -11,7 +11,7 @@ import {
 	Cross1Icon,
 } from "@radix-ui/react-icons";
 
-export const TimeRuler: React.FC<{ primaryColor: boolean }> = ({
+export const TimeRuler: React.FC<{ primaryColor?: boolean }> = ({
 	primaryColor,
 }) => {
 	const dashes = Array.from({ length: 97 });
@@ -94,7 +94,7 @@ const TopSection: React.FC<{
 	);
 };
 
-const MiddleSection: React.FC<{ time: string; offset: string }> = ({
+const MiddleSection: React.FC<{ timeString: string; offset: string }> = ({
 	timeString,
 	offset,
 }) => {
@@ -208,7 +208,7 @@ const BottomSection: React.FC<{
 						</div>
 					))}
 				{schedules &&
-					schedules.map((schedule: UserType) => (
+					schedules.map((schedule: ScheduleType) => (
 						<div className="-mr-1.5">
 							<ProfileIcon
 								name={schedule.name}
@@ -258,7 +258,7 @@ const TimezoneCard: React.FC<TimezoneCardProps> = ({
 				/>
 				<MiddleSection
 					timeString={currentTime.format("hh:mm:ss A")}
-					offset={timezoneOffset > 0 ? `+${timezoneOffset}` : timezoneOffset}
+					offset={timezoneOffset > 0 ? `+${timezoneOffset}` : `${timezoneOffset}`}
 				/>
 				<TimeRuler />
 				<TimeProgressBar timezone={timezone} />

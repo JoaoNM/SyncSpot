@@ -132,7 +132,11 @@ export const Dashboard: FC = () => {
 		const fetchFirstTeam = async () => {
 			if (user && teams && teams.length > 0) {
 				const data = await readUserInfoFromTeam(teams[0]);
-				setSelectedTeam(data);
+				if (data !== null) {
+					setSelectedTeam(data);
+				} else {
+					setSelectedTeam(undefined);
+				}
 			}
 		};
 
@@ -143,7 +147,7 @@ export const Dashboard: FC = () => {
 		<>
 			{teams && teams.length > 0 ? (
 				<div className="flex md:flex-row gap-3 md:gap-6 pb-4 md:pb-1 flex-col items-center w-full justify-between">
-					<TeamSelector teams={teams} />
+					<TeamSelector />
 					<AddSchedule />
 				</div>
 			) : (
